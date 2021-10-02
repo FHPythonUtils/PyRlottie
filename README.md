@@ -20,6 +20,7 @@ Convert .tgs and .lottie to .webp or .gif using rlottie.
 - [Documentation](#documentation)
 - [Supported Environments (64bit)](#supported-environments-64bit)
 - [Install With PIP](#install-with-pip)
+	- [WSL](#wsl)
 - [Language information](#language-information)
 	- [Built for](#built-for)
 - [Install Python on Windows](#install-python-on-windows)
@@ -115,9 +116,20 @@ For a full list of machine architecures for Linux see https://stackoverflow.com/
 
 ## Install With PIP
 
-```python
+```cmd
 pip install pyrlottie
 ```
+
+### WSL
+Need to preserve execute bits
+
+```cmd
+mkdir pip-tmp
+TMPDIR='./pip-tmp' pip install pyrlottie && rmdir pip-tmp
+```
+
+https://github.com/pypa/pip/issues/7666
+https://github.com/pypa/pip/issues/6364
 
 Head to https://pypi.org/project/pyrlottie/ for more info
 
