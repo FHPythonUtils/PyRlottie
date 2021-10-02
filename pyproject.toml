@@ -59,7 +59,7 @@ disable = [
 
 [tool.black]
 line-length = 100
-target-version = "py37"
+target-version = ["py37"]
 
 [tool.isort]
 profile = "black"
