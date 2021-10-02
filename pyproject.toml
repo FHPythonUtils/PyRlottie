@@ -1,0 +1,69 @@
+[tool.poetry]
+name = "pyrlottie"
+version = "2021"
+description = "Convert .tgs and .lottie to .webp or .gif using rlottie."
+authors = ["FredHappyface"]
+classifiers = [
+	"Development Status :: 5 - Production/Stable",
+	"Intended Audience :: Developers",
+	"Intended Audience :: Education",
+	"License :: OSI Approved :: MIT License",
+	"Natural Language :: English",
+	"Operating System :: OS Independent",
+	"Programming Language :: Python :: 3",
+	"Programming Language :: Python :: 3.7",
+	"Programming Language :: Python :: 3.8",
+	"Programming Language :: Python :: 3.9",
+	"Programming Language :: Python :: Implementation :: CPython",
+	"Topic :: Software Development :: Libraries :: Python Modules",
+	"Topic :: Utilities",
+	"Topic :: Multimedia :: Graphics",
+]
+homepage = "https://github.com/FHPythonUtils/PyRlottie"
+repository = "https://github.com/FHPythonUtils/PyRlottie"
+documentation = "https://github.com/FHPythonUtils/PyRlottie/blob/master/README.md"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.7,<3.11"
+attrs = "<22,>=21.2.0"
+Pillow = "<9,>=8.3.2"
+numpy = "<2,>=1.21.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+# Pylint
+[tool.pylint.basic]
+argument-naming-style = "camelCase"
+attr-naming-style = "camelCase"
+function-naming-style = "camelCase"
+method-naming-style = "camelCase"
+variable-naming-style = "camelCase"
+
+[tool.pylint.format]
+indent-string = "\t"
+
+[tool.pylint.master]
+ignore-patterns = "test_.*?py"
+
+[tool.pylint.messages_control]
+enable = ['F', 'E', 'W', 'R', 'C']
+disable = [
+	"pointless-string-statement",
+	"superfluous-parens",
+	"bad-continuation",
+	"python3",
+]
+
+[tool.black]
+line-length = 100
+target-version = "py37"
+
+[tool.isort]
+profile = "black"
+
+[tool.pydocstyle]
+convention = "google"
+ignore = "D205,D415"

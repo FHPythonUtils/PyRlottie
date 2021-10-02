@@ -1,0 +1,17 @@
+gif2webp: https://storage.googleapis.com/downloads.webmproject.org/releases/webp/index.html
+
+linux_x86_64  libwebp-1.2.1-linux-x86-64.tar.gz
+linux_aarch64
+windows_amd64 libwebp-1.2.1-windows-x64.zip
+darwin_x86_64 libwebp-1.2.1-mac-10.15.tar.gz
+darwin_arm64
+
+rlottie + lottie2gif: https://github.com/Samsung/rlottie/tree/327fb7dbaad225555d5ca567b9adee9ce5f879f4
+
+Built per instructions in build_steps.txt
+
+linux_x86_64  ✔
+linux_aarch64 :x:
+windows_amd64 ✔
+darwin_x86_64 :x:
+darwin_arm64  :x:
