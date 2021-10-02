@@ -1,8 +1,7 @@
 
 requirements_optional.txt
-
 build_*/
-
+*.prof
 
 # Prerequisites
 *.d
