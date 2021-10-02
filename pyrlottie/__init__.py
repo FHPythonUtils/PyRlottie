@@ -128,11 +128,11 @@ class FileMap:
 
 	Args:
 		lottieFile (LottieFile): lottie file
-		destFiles (set[str]): set of destination/output files. Default=["out.gif"]
+		destFiles (set[str]): set of destination/output files. Default={"out.gif"}
 	"""
 
 	lottieFile: LottieFile = attr.ib()
-	destFiles: set[str] = attr.ib(default=["out.gif"])
+	destFiles: set[str] = attr.ib(default={"out.gif"})
 
 
 @attr.s
@@ -197,7 +197,7 @@ def _scale(dimen: str, scale: float = 1) -> int | str:
 	"""
 	if scale == 1:
 		return dimen
-	return min(int(int(dimen) * scale), 1)
+	return max(int(int(dimen) * scale), 1)
 
 
 def _getTransparency(image1: np.ndarray, image2: np.ndarray) -> np.ndarray:
@@ -469,25 +469,23 @@ async def convSingleLottie(
 	if len(gifFiles) < 1:
 		with NamedTemporaryFile(suffix=".gif") as namedTemporaryFile:
 			gifFiles = [namedTemporaryFile.name]
-	ret = await _execSubprocess(
+	cmd = (
 		f"{binDir}/lottie2gif {lottieFile.path} {_scale(lottieFile.data['w'], scale)}"
-		f"x{_scale(lottieFile.data['h'], scale)} {backgroundColour} {gifFiles[0]} {frameSkip}",
+		f"x{_scale(lottieFile.data['h'], scale)} {backgroundColour} {gifFiles[0]} {frameSkip}"
 	)
+	ret = await _execSubprocess(cmd)
 	if ret[0] > 0:
-		print(ret)
-		raise RuntimeError
+		raise RuntimeError(f"{cmd=}: {ret=}")
 	for gifFile in gifFiles[1:]:
 		shutil.copy(gifFiles[0], gifFile)
 
 	# gif2webp
 	webpFiles = [file for file in destFiles if file.endswith(".webp")]
 	if len(webpFiles):
-		ret = await _execSubprocess(
-			f"{binDir}/gif2webp {gifFiles[0]} -o {webpFiles[0]} -mt",
-		)
+		cmd = f"{binDir}/gif2webp {gifFiles[0]} -o {webpFiles[0]} -mt"
+		ret = await _execSubprocess(cmd)
 		if ret[0] > 0:
-			print(ret)
-			raise RuntimeError
+			raise RuntimeError(f"{cmd=}: {ret=}")
 		for webpFile in webpFiles[1:]:
 			shutil.copy(webpFiles[0], webpFile)
 

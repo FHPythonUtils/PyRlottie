@@ -86,7 +86,7 @@ FileMap. Map a LottieFile to a set of destination/output files.
 #### Arguments
 
 - `lottieFile` *LottieFile* - lottie file
-- `destFiles` *set[str]* - set of destination/output files. Default=["out.gif"]
+- `destFiles` *set[str]* - set of destination/output files. Default={"out.gif"}
 
 ## LottieFile
 
