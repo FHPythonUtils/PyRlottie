@@ -1,7 +1,6 @@
 """Basic tests for pyrlottie.
 """
 import time
-from asyncio import run
 
 from pyrlottie import (
 	FileMap,
@@ -12,10 +11,10 @@ from pyrlottie import (
 	convSingleLottie,
 	convSingleLottieFrames,
 	convSingleLottieTransparentFrames,
+	run,
 )
 
 gLottieFile = LottieFile("test_data/3d.json")
-
 
 # convSingleLottie
 start = time.time()
@@ -40,7 +39,6 @@ print(
 
 end = time.time()
 print(f"Time taken (convMultLottie) - {(end - start):.3f}s")
-
 
 # convMultLottie
 start = time.time()
