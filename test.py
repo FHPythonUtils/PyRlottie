@@ -17,7 +17,7 @@ from pyrlottie import (
 gLottieFile = LottieFile("test_data/3d.json")
 
 # convSingleLottie
-start = time.time()
+teststart = start = time.time()
 print(
 	run(
 		convSingleLottie(gLottieFile, destFiles={"test_data/convSingleLottie.webp"}),
@@ -31,9 +31,7 @@ print(f"Time taken (convSingleLottie) - {(end - start):.3f}s")
 start = time.time()
 print(
 	run(
-		convMultLottie(
-			[FileMap(gLottieFile, {"test_data/convMultLottie.webp"}) for _ in range(10)]
-		),
+		convMultLottie([FileMap(gLottieFile, {"test_data/convMultLottie.webp"})] * 10),
 	)
 )
 
@@ -49,6 +47,7 @@ print(
 				FileMap(LottieFile(f"test_data/file_43{i}.tgs"), {f"test_data/file_43{i}.webp"})
 				for i in range(4, 10)
 			]
+			* 3
 		)
 	)
 )
@@ -114,3 +113,5 @@ print(
 )
 end = time.time()
 print(f"Time taken (convMultLottieTransparentFrames:tgs:frameSkip=1=30fps) - {(end - start):.3f}s")
+
+print(f"## Total time taken - {(time.time() - teststart):.3f}s")
