@@ -763,4 +763,3 @@ void memfill32(uint32_t *dest, uint32_t value, int length)
     }
 }
 #endif
-

@@ -18,5 +18,3 @@ else
                                   sources : source_file
                                  )
 endif
-
-

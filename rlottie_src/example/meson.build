@@ -70,5 +70,3 @@ executable('lottieviewer',
            override_options : override_default,
            link_with : rlottie_lib,
            dependencies : demo_dep)
-
-

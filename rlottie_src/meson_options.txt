@@ -41,6 +41,3 @@ option('cmake',
   type: 'boolean',
   value: false,
   description: 'Enable Generating  CMake config files')
-
-
-

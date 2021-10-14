@@ -146,4 +146,3 @@ EvasApp::jsonFiles(const std::string &dirName, bool /*recurse*/)
 
     return result;
 }
-

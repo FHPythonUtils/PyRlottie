@@ -415,8 +415,8 @@ void initUIControl(HWND hWnd)
     anim.height = anim.width;
 
     // animating range
-    SetRect(&animRect, 
-        anim.x - UI_INTERVAL, 
+    SetRect(&animRect,
+        anim.x - UI_INTERVAL,
         anim.y - UI_INTERVAL,
         anim.x + anim.width + UI_INTERVAL * 2,
         anim.y + anim.height + UI_INTERVAL * 2

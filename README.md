@@ -25,12 +25,16 @@ Convert .tgs and .lottie to .webp or .gif using rlottie.
 	- [Built for](#built-for)
 - [Install Python on Windows](#install-python-on-windows)
 	- [Chocolatey](#chocolatey)
-	- [Download](#download)
+	- [Windows - Python.org](#windows---pythonorg)
 - [Install Python on Linux](#install-python-on-linux)
 	- [Apt](#apt)
+	- [Dnf](#dnf)
+- [Install Python on MacOS](#install-python-on-macos)
+	- [Homebrew](#homebrew)
+	- [MacOS - Python.org](#macos---pythonorg)
 - [How to run](#how-to-run)
-	- [With VSCode](#with-vscode)
-	- [From the Terminal](#from-the-terminal)
+	- [Windows](#windows)
+	- [Linux/ MacOS](#linux-macos)
 - [Download Project](#download-project)
 	- [Clone](#clone)
 		- [Using The Command Line](#using-the-command-line)
@@ -135,8 +139,7 @@ Head to https://pypi.org/project/pyrlottie/ for more info
 
 ## Language information
 ### Built for
-This program has been written for Python 3 and has been tested with
-Python version 3.9.0 <https://www.python.org/downloads/release/python-380/>.
+This program has been written for Python versions 3.7 - 3.10 and has been tested with both 3.7 and 3.10
 
 ## Install Python on Windows
 ### Chocolatey
@@ -145,30 +148,54 @@ Python version 3.9.0 <https://www.python.org/downloads/release/python-380/>.
 choco install python
 ```
 
-### Download
-To install Python, go to <https://www.python.org/> and download the latest
+### Windows - Python.org
+To install Python, go to https://www.python.org/downloads/windows/ and download the latest
 version.
 
 ## Install Python on Linux
 ### Apt
 
 ```bash
-sudo apt install python3.9
+sudo apt install python3.x
 ```
 
-## How to run
-### With VSCode
-
-1. Open the .py file in vscode
-2. Ensure a python 3.9 interpreter is selected (Ctrl+Shift+P > Python:Select
-Interpreter > Python 3.9)
-3. Run by pressing Ctrl+F5 (if you are prompted to install any modules, accept)
-
-### From the Terminal
+### Dnf
 
 ```bash
-./[file].py
+sudo dnf install python3.x
 ```
+
+## Install Python on MacOS
+### Homebrew
+
+```bash
+brew install python@3.x
+```
+
+### MacOS - Python.org
+To install Python, go to https://www.python.org/downloads/macos/ and download the latest
+version.
+
+## How to run
+### Windows
+
+- Module
+
+	`python -3.x -m [module]` or `[module]` (if module installs a script)
+
+- File
+
+	`python -3.x [file]` or `./[file]`
+
+### Linux/ MacOS
+
+- Module
+
+	`python3.x -m [module]` or `[module]` (if module installs a script)
+
+- File
+
+	`python3.x [file]` or `./[file]`
 
 ## Download Project
 ### Clone
@@ -185,7 +212,7 @@ clone to
 	```
 
 More information can be found at
-<https://help.github.com/en/articles/cloning-a-repository>
+https://help.github.com/en/articles/cloning-a-repository
 
 #### Using GitHub Desktop
 
@@ -194,7 +221,7 @@ More information can be found at
 3. Choose the path for where you want and click Clone
 
 More information can be found at
-<https://help.github.com/en/desktop/contributing-to-projects/cloning-a-repository-from-github-to-github-desktop>
+https://help.github.com/en/desktop/contributing-to-projects/cloning-a-repository-from-github-to-github-desktop
 
 ### Download Zip File
 

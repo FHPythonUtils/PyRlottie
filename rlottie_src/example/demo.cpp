@@ -250,8 +250,3 @@ main(void)
    delete app;
    return 0;
 }
-
-
-
-
-

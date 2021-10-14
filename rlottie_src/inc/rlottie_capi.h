@@ -296,4 +296,3 @@ RLOTTIE_API void lottie_configure_model_cache_size(size_t cacheSize);
 #endif
 
 #endif //_RLOTTIE_CAPI_H_
-
