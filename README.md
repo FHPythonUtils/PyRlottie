@@ -138,10 +138,13 @@ https://github.com/pypa/pip/issues/6364
 Head to https://pypi.org/project/pyrlottie/ for more info
 
 ## Language information
+
 ### Built for
-This program has been written for Python versions 3.7 - 3.10 and has been tested with both 3.7 and 3.10
+This program has been written for Python versions 3.7 - 3.10 and has been tested with both 3.7 and
+3.10
 
 ## Install Python on Windows
+
 ### Chocolatey
 
 ```powershell
@@ -153,6 +156,7 @@ To install Python, go to https://www.python.org/downloads/windows/ and download 
 version.
 
 ## Install Python on Linux
+
 ### Apt
 
 ```bash
@@ -166,6 +170,7 @@ sudo dnf install python3.x
 ```
 
 ## Install Python on MacOS
+
 ### Homebrew
 
 ```bash
@@ -177,28 +182,27 @@ To install Python, go to https://www.python.org/downloads/macos/ and download th
 version.
 
 ## How to run
+
 ### Windows
 
 - Module
-
-	`python -3.x -m [module]` or `[module]` (if module installs a script)
+	`py -3.x -m [module]` or `[module]` (if module installs a script)
 
 - File
-
-	`python -3.x [file]` or `./[file]`
+	`py -3.x [file]` or `./[file]`
 
 ### Linux/ MacOS
 
 - Module
-
 	`python3.x -m [module]` or `[module]` (if module installs a script)
 
 - File
-
 	`python3.x [file]` or `./[file]`
 
 ## Download Project
+
 ### Clone
+
 #### Using The Command Line
 
 1. Press the Clone or download button in the top right
@@ -230,6 +234,7 @@ https://help.github.com/en/desktop/contributing-to-projects/cloning-a-repository
 3. Copy/ move to the desired location
 
 ## Community Files
+
 ### Licence
 MIT License
 Copyright (c) FredHappyface

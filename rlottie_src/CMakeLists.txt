@@ -13,11 +13,8 @@ if (NOT DEFINED BUILD_SHARED_LIBS)
 endif()
 
 #declare target
-if(MSVC)
-    add_library( rlottie )
-else()
-    add_library( rlottie STATIC )
-endif()
+add_library( rlottie )
+
 set_target_properties( rlottie PROPERTIES DEFINE_SYMBOL RLOTTIE_BUILD )
 
 #declare version of the target
