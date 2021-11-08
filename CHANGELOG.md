@@ -2,6 +2,11 @@
 All major and minor version changes will be documented in this file. Details of
 patch-level version changes can be found in [commit messages](../../commits/master).
 
+## 2021.2 - 2021/11/08
+
+- Add linux_aarch64
+- Update build docs
+
 ## 2021.1.1 - 2021/10/14
 
 - Use pre-commit to enforce reasonable standards + consistency
@@ -13,8 +18,8 @@ patch-level version changes can be found in [commit messages](../../commits/mast
 
 - Throw an `OSError` if the user's environment is unsupported rather than exit
 - Use `asyncio.Semaphore` to limit the number of processes spawned to
-  `multiprocessing.cpu_count() * 2` (previously unlimited)
-  - However, this breaks `asyncio.run(convMethod)`
+	`multiprocessing.cpu_count() * 2` (previously unlimited)
+	- However, this breaks `asyncio.run(convMethod)`
 
 	```md
 	Use `pyrlottie.run(convMethod)` or `asyncio.get_event_loop().run_until_complete(convMethod)`

@@ -8,6 +8,8 @@
 		- [windows_amd64](#windows_amd64)
 		- [windows_arm64](#windows_arm64)
 
+https://github.com/Samsung/rlottie/tree/327fb7dbaad225555d5ca567b9adee9ce5f879f4
+
 ## linux
 
 ### linux_x86_64

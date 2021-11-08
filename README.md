@@ -111,7 +111,7 @@ See the [Docs](/DOCS/) for more information.
 | Environment | Supported |
 | ----------- | --------- |
 |linux_x86_64 | ✔         |
-|linux_aarch64| :x:       |
+|linux_aarch64| ✔       |
 |windows_amd64| ✔         |
 |darwin_x86_64| :x:       |
 |darwin_arm64 | :x:       |
