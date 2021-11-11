@@ -30,6 +30,8 @@ numpy = "<2,>=1.21.2"
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
+[tool.pylint]
+
 [tool.pylint.basic]
 argument-naming-style = "camelCase"
 attr-naming-style = "camelCase"
@@ -48,8 +50,7 @@ enable = ["F", "E", "W", "R", "C"]
 disable = [
 	"pointless-string-statement",
 	"superfluous-parens",
-	"bad-continuation",
-	"python3"
+	"bad-continuation"
 ]
 
 [tool.black]
