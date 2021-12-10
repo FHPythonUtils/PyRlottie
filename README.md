@@ -52,6 +52,7 @@ Convert .tgs and .lottie to .webp or .gif using rlottie.
 ## Formats
 
 convMultLottie, convSingleLottie
+
 | Format | Animated |
 | ------ | -------- |
 | .gif   | ✔        |
@@ -60,14 +61,15 @@ convMultLottie, convSingleLottie
 convMultLottieFrames,
 convMultLottieTransparentFrames,
 convSingleLottieFrames,
-convSingleLottieTransparentFrames,
+convSingleLottieTransparentFrames
+
 | Format | Animated |
 | ------ | -------- |
 | .gif   | ✔        |
 | .webp  | ✔        |
 | .apng  | ✔        |
-| .png   | :x:      |
-| .jpg   | :x:      |
+| .png   | ❌      |
+| .jpg   | ❌      |
 | etc... | ...      |
 
 https://pillow.readthedocs.io/en/stable/handbook/image-file-formats.html
@@ -114,8 +116,8 @@ See the [Docs](/DOCS/) for more information.
 | linux_x86_64  | ✔         |
 | linux_aarch64 | ✔         |
 | windows_amd64 | ✔         |
-| darwin_x86_64 | :x:       |
-| darwin_arm64  | :x:       |
+| darwin_x86_64 | ❌       |
+| darwin_arm64  | ❌       |
 
 For a full list of machine architecures for Linux see https://stackoverflow.com/questions/45125516/possible-values-for-uname-m
 
