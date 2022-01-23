@@ -2,7 +2,12 @@
 """
 from __future__ import annotations
 
+import sys
 import time
+from pathlib import Path
+
+THISDIR = str(Path(__file__).resolve().parent)
+sys.path.insert(0, str(Path(THISDIR).parent))
 
 from pyrlottie import (
 	FileMap,
@@ -16,13 +21,13 @@ from pyrlottie import (
 	run,
 )
 
-gLottieFile = LottieFile("test_data/3d.json")
+gLottieFile = LottieFile(f"{THISDIR}/data/3d.json")
 
 # convSingleLottie
 teststart = start = time.time()
 print(
 	run(
-		convSingleLottie(gLottieFile, destFiles={"test_data/convSingleLottie.webp"}),
+		convSingleLottie(gLottieFile, destFiles={f"{THISDIR}/data/convSingleLottie.webp"}),
 	)
 )
 
@@ -33,7 +38,7 @@ print(f"Time taken (convSingleLottie) - {(end - start):.3f}s")
 start = time.time()
 print(
 	run(
-		convMultLottie([FileMap(gLottieFile, {"test_data/convMultLottie.webp"})] * 10),
+		convMultLottie([FileMap(gLottieFile, {f"{THISDIR}/data/convMultLottie.webp"})] * 10),
 	)
 )
 
@@ -46,13 +51,17 @@ print(
 	run(
 		convMultLottie(
 			[
-				FileMap(LottieFile(f"test_data/file_43{i}.tgs"), {f"test_data/file_43{i}.webp"})
+				FileMap(
+					LottieFile(f"{THISDIR}/data/file_43{i}.tgs"),
+					{f"{THISDIR}/data/file_43{i}.webp"},
+				)
 				for i in range(4, 10)
 			]
 			* 3
 		)
 	)
 )
+
 end = time.time()
 print(f"Time taken (convMultLottie:tgs) - {(end - start):.3f}s")
 
@@ -74,7 +83,7 @@ gLottieFrames = run(convSingleLottieTransparentFrames(gLottieFile))
 layers = gLottieFrames[gLottieFile.path].frames
 print(len(layers))
 layers[0].save(
-	"test_data/convSingleLottieTransparentFrames.webp",
+	f"{THISDIR}/data/convSingleLottieTransparentFrames.webp",
 	duration=int(1000 / gLottieFile.data["fr"]),
 	save_all=True,
 	append_images=layers[1:],
@@ -94,7 +103,7 @@ print(
 	len(
 		run(
 			convMultLottieTransparentFrames(
-				[LottieFile(f"test_data/file_43{i}.tgs") for i in range(4, 10)]
+				[LottieFile(f"{THISDIR}/data/file_43{i}.tgs") for i in range(4, 10)]
 			)
 		)
 	)
@@ -108,7 +117,7 @@ print(
 	len(
 		run(
 			convMultLottieTransparentFrames(
-				[LottieFile(f"test_data/file_43{i}.tgs") for i in range(4, 10)], 1
+				[LottieFile(f"{THISDIR}/data/file_43{i}.tgs") for i in range(4, 10)], 1
 			)
 		)
 	)

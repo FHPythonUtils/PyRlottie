@@ -75,7 +75,7 @@ frames = run(
 
 ## FileMap
 
-[[find in source code]](../../pyrlottie/__init__.py#L127)
+[[find in source code]](../../pyrlottie/__init__.py#L128)
 
 ```python
 attr.s
@@ -91,7 +91,7 @@ FileMap. Map a LottieFile to a set of destination/output files.
 
 ## LottieFile
 
-[[find in source code]](../../pyrlottie/__init__.py#L82)
+[[find in source code]](../../pyrlottie/__init__.py#L83)
 
 ```python
 attr.s
@@ -111,7 +111,7 @@ LottieFile. Load a lottie/tgs has a path and data (json/dict).
 
 ### LottieFile().\_\_attrs\_post\_init\_\_
 
-[[find in source code]](../../pyrlottie/__init__.py#L96)
+[[find in source code]](../../pyrlottie/__init__.py#L97)
 
 ```python
 def __attrs_post_init__() -> None:
@@ -130,7 +130,7 @@ LottieFile __attrs_post_init__ called by attrs.
 
 ## LottieFrames
 
-[[find in source code]](../../pyrlottie/__init__.py#L140)
+[[find in source code]](../../pyrlottie/__init__.py#L141)
 
 ```python
 attr.s
@@ -147,7 +147,7 @@ and a list of PIL.Image.Image(s) containing frame data.
 
 ## convMultLottie
 
-[[find in source code]](../../pyrlottie/__init__.py#L409)
+[[find in source code]](../../pyrlottie/__init__.py#L407)
 
 ```python
 async def convMultLottie(
@@ -183,7 +183,7 @@ for optimisation with a quality trade-off. Defaults to 1.
 
 ## convMultLottieFrames
 
-[[find in source code]](../../pyrlottie/__init__.py#L331)
+[[find in source code]](../../pyrlottie/__init__.py#L329)
 
 ```python
 async def convMultLottieFrames(
@@ -214,7 +214,7 @@ for optimisation with a quality trade-off. Defaults to 1.
 
 ## convMultLottieTransparentFrames
 
-[[find in source code]](../../pyrlottie/__init__.py#L252)
+[[find in source code]](../../pyrlottie/__init__.py#L250)
 
 ```python
 async def convMultLottieTransparentFrames(
@@ -243,7 +243,7 @@ for optimisation with a quality trade-off. Defaults to 1.
 
 ## convSingleLottie
 
-[[find in source code]](../../pyrlottie/__init__.py#L451)
+[[find in source code]](../../pyrlottie/__init__.py#L449)
 
 ```python
 async def convSingleLottie(
@@ -291,7 +291,7 @@ for optimisation with a quality trade-off. Defaults to 1.
 
 ## convSingleLottieFrames
 
-[[find in source code]](../../pyrlottie/__init__.py#L369)
+[[find in source code]](../../pyrlottie/__init__.py#L367)
 
 ```python
 async def convSingleLottieFrames(
@@ -326,7 +326,7 @@ for optimisation with a quality trade-off. Defaults to 1.
 
 ## convSingleLottieTransparentFrames
 
-[[find in source code]](../../pyrlottie/__init__.py#L287)
+[[find in source code]](../../pyrlottie/__init__.py#L285)
 
 ```python
 async def convSingleLottieTransparentFrames(
@@ -359,23 +359,24 @@ for optimisation with a quality trade-off. Defaults to 1.
 
 ## run
 
-[[find in source code]](../../pyrlottie/__init__.py#L229)
+[[find in source code]](../../pyrlottie/__init__.py#L230)
 
 ```python
+@deprecated(
+    deprecated_in='2022',
+    removed_in='',
+    details='asyncio.run(convMethod)',
+)
 def run(convMethod: Awaitable) -> Any:
 ```
 
-Use `pyrlottie.run(convMethod)` or `asyncio.get_event_loop().run_until_complete(convMethod)`
-in place of `asyncio.run(convMethod)`
-
-See https://github.com/awestlake87/pyo3-asyncio/issues/19#issuecomment-846686814
-for more information
+Use `asyncio.run(convMethod)` in-place of this method.
 
 Run until the future (an instance of Future) has completed.
 
 If the argument is a coroutine object it is implicitly scheduled to run as a asyncio.Task.
 
-Return the Future’s result or raise its exception.
+Return the Future's result or raise its exception.
 
 #### Arguments
 

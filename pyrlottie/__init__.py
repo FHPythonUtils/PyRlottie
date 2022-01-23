@@ -70,6 +70,7 @@ from typing import Any, Awaitable, cast
 
 import attr
 import numpy as np
+from deprecation import deprecated
 from PIL import Image
 
 # pylint: disable=too-few-public-methods
@@ -226,18 +227,15 @@ def _getTransparency(image1: np.ndarray, image2: np.ndarray) -> np.ndarray:
 	)
 
 
+@deprecated(deprecated_in="2022", removed_in="", details="Use asyncio.run(convMethod)")
 def run(convMethod: Awaitable) -> Any:
-	"""Use `pyrlottie.run(convMethod)` or `asyncio.get_event_loop().run_until_complete(convMethod)`
-	in place of `asyncio.run(convMethod)`
-
-	See https://github.com/awestlake87/pyo3-asyncio/issues/19#issuecomment-846686814
-	for more information
+	"""Use `asyncio.run(convMethod)` in-place of `pyrlottie.run(convMethod)`.
 
 	Run until the future (an instance of Future) has completed.
 
 	If the argument is a coroutine object it is implicitly scheduled to run as a asyncio.Task.
 
-	Return the Future’s result or raise its exception.
+	Return the Future's result or raise its exception.
 
 	Args:
 		convMethod (Awaitable): Awaitable to run. eg.
@@ -246,7 +244,7 @@ def run(convMethod: Awaitable) -> Any:
 	Returns:
 		Any: the Awaitable's result or raise its exception.
 	"""
-	return asyncio.get_event_loop().run_until_complete(convMethod)
+	return asyncio.run(convMethod)
 
 
 async def convMultLottieTransparentFrames(
