@@ -123,7 +123,7 @@ For a full list of machine architecures for Linux see https://stackoverflow.com/
 
 ## Install With PIP
 
-```cmd
+```sh
 pip install pyrlottie
 ```
 
@@ -131,7 +131,7 @@ pip install pyrlottie
 
 Need to preserve execute bits
 
-```cmd
+```sh
 mkdir pip-tmp
 TMPDIR='./pip-tmp' pip install pyrlottie && rmdir pip-tmp
 ```

@@ -21,7 +21,7 @@ OS: x86_64 GNU/Linux eg WSL Ubuntu
 - gcc
 - g++
 
-```cmd
+```sh
 cmake -Bbuild_linux_x86_64 -DBUILD_SHARED_LIBS=OFF
 cmake --build build_linux_x86_64
 -> build_linux_x86_64/example/lottie2gif
@@ -37,7 +37,7 @@ OS: x86_64 GNU/Linux eg WSL Ubuntu
 - binutils-aarch64-linux-gnu
 - g++-aarch64-linux-gnu
 
-```cmd
+```sh
 cmake -Bbuild_linux_aarch64 -DBUILD_SHARED_LIBS=OFF -DCMAKE_C_COMPILER=aarch64-linux-gnu-gcc -DCMAKE_CXX_COMPILER=aarch64-linux-gnu-g++
 cmake --build build_linux_aarch64
 -> build_linux_aarch64/example/lottie2gif
@@ -53,7 +53,7 @@ OS: Windows 10 amd64
 - Visual Studio 16 2019
 - cmake
 
-```cmd
+```sh
 cmake -Bbuild_windows_amd64 -DBUILD_SHARED_LIBS=OFF
 cmake --build build_windows_amd64
 -> build_windows_amd64\example\Debug\lottie2gif.exe
@@ -67,7 +67,7 @@ OS: Windows 10 amd64
 - Visual Studio 16 2019 + Desktop Dev with C++ Build tools Arm64
 - cmake
 
-```cmd
+```sh
 cmake -Bbuild_windows_arm64 -DBUILD_SHARED_LIBS=OFF -AARM64
 cmake --build build_windows_arm64
 -> build_windows_arm64\example\Debug\lottie2gif.exe

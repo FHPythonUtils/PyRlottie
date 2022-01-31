@@ -33,7 +33,7 @@ OS: x86_64 GNU/Linux eg WSL Ubuntu
 - g++
 - libgif-dev (gif2webp)
 
-```cmd
+```sh
 cmake -Bbuild_linux_x86_64 -DBUILD_SHARED_LIBS=OFF
 cmake --build build_linux_x86_64
 -> build_linux_x86_64/gif2webp
@@ -62,12 +62,12 @@ deb [arch=armhf,arm64] http://ports.ubuntu.com/ focal-updates multiverse
 deb [arch=armhf,arm64] http://ports.ubuntu.com/ focal-backports main restricted universe multiverse
 ```
 
-```cmd
+```sh
 sudo dpkg --add-architecture arm64
 sudo apt install libgif-dev:arm64
 ```
 
-```cmd
+```sh
 cmake -Bbuild_linux_aarch64 -DBUILD_SHARED_LIBS=OFF -DCMAKE_C_COMPILER=aarch64-linux-gnu-gcc -DCMAKE_CXX_COMPILER=aarch64-linux-gnu-g++
 cmake --build build_linux_aarch64
 -> build_linux_aarch64/gif2webp
