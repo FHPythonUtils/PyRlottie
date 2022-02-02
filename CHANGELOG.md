@@ -3,6 +3,16 @@
 All major and minor version changes will be documented in this file. Details of
 patch-level version changes can be found in [commit messages](../../commits/master).
 
+## Next_ver
+
+- Massive c refactoring to reduce maintenace (c/libraries)
+	- `libwebp` (plans to write to webp directly to address https://github.com/FHPythonUtils/PyRlottie/issues/1)
+	- `rlottie`
+- c/src
+	- `gif.h`: Single header lib for writing to gifs
+	- `lottie2img.cpp`: New shiny version of `lottie2gif.cpp`
+	- `rlottie.h`: rlottie headers
+
 ## 2022 - 2022/01/23
 
 - Bump pillow version (CVE-2022-22815, CVE-2022-22816, CVE-2022-22817)

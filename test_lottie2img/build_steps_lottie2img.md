@@ -1,54 +1,41 @@
 # Build Steps
 
 - [Build Steps](#build-steps)
-	- [linux](#linux)
-		- [linux_x86_64 (optional)](#linux_x86_64-optional)
-		- [linux_aarch64](#linux_aarch64)
+	- [Linux (Ubuntu 20.04)](#linux-ubuntu-2004)
+	- [linux_x86_64](#linux_x86_64)
+	- [linux_aarch64](#linux_aarch64)
 	- [windows](#windows)
 		- [windows_amd64](#windows_amd64)
 		- [windows_arm64](#windows_arm64)
 
-https://storage.googleapis.com/downloads.webmproject.org/releases/webp/index.html
+## Linux (Ubuntu 20.04)
 
-https://chromium.googlesource.com/webm/libwebp/+/8ea81561d2fdd382da60f57958741a7c23a18eb6
+Use vagrant (`$Env:VAGRANT_VAGRANTFILE='Vagrantfile_linux.rb'; vagrant up`) or
+set up an Ubuntu machine/ vm with the following tools installed listed in each
+section. These instructions are for x86_64 Ubuntu 20.04
 
-```txt
-linux_x86_64  libwebp-1.2.1-linux-x86-64.tar.gz
-linux_aarch64 (see linux_aarch64)
-windows_amd64 libwebp-1.2.1-windows-x64.zip
-windows_arm64
-darwin_x86_64 libwebp-1.2.1-mac-10.15.tar.gz
-darwin_arm64
-```
+## linux_x86_64
 
-## linux
-
-### linux_x86_64 (optional)
-
-Requirements:
-OS: x86_64 GNU/Linux eg WSL Ubuntu
+Requirements: x86_64 Ubuntu 20.04
 
 - cmake
 - gcc
 - g++
-- libgif-dev (gif2webp)
 
 ```sh
 cmake -Bbuild_linux_x86_64 -DBUILD_SHARED_LIBS=OFF
 cmake --build build_linux_x86_64
--> build_linux_x86_64/gif2webp
+-> build_linux_x86_64/src/lottie2img
 ```
 
-### linux_aarch64
+## linux_aarch64
 
-Requirements:
-OS: x86_64 GNU/Linux eg WSL Ubuntu
+Requirements: x86_64 Ubuntu 20.04
 
 - cmake
 - gcc-aarch64-linux-gnu
 - binutils-aarch64-linux-gnu
 - g++-aarch64-linux-gnu
-- libgif-dev:arm64 (gif2webp)
 
 `sudo vim /etc/apt/sources.list.d/arm-cross-compile-sources.list`
 
@@ -70,23 +57,33 @@ sudo apt install libgif-dev:arm64
 ```sh
 cmake -Bbuild_linux_aarch64 -DBUILD_SHARED_LIBS=OFF -DCMAKE_C_COMPILER=aarch64-linux-gnu-gcc -DCMAKE_CXX_COMPILER=aarch64-linux-gnu-g++
 cmake --build build_linux_aarch64
--> build_linux_aarch64/gif2webp
+-> build_linux_aarch64/src/lottie2img
 ```
 
 ## windows
 
 ### windows_amd64
 
-Requirements
-OS: Windows 10 amd64
+Requirements: amd64 Windows 10
 
 - Visual Studio 16 2019
 - cmake
 
+```sh
+cmake -Bbuild_windows_amd64 -DBUILD_SHARED_LIBS=OFF
+cmake --build build_windows_amd64
+-> build_windows_amd64\src\Debug\lottie2img.exe
+```
+
 ### windows_arm64
 
-Requirements
-OS: Windows 10 amd64
+Requirements: amd64 Windows 10
 
 - Visual Studio 16 2019 + Desktop Dev with C++ Build tools Arm64
 - cmake
+
+```sh
+cmake -Bbuild_windows_arm64 -DBUILD_SHARED_LIBS=OFF -AARM64
+cmake --build build_windows_arm64
+-> build_windows_arm64\src\Debug\lottie2img.exe
+```
