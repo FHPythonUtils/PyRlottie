@@ -9,9 +9,7 @@ convMultLottie, convSingleLottie
 | .webp  | ✔        |
 
 convMultLottieFrames,
-convMultLottieTransparentFrames,
 convSingleLottieFrames,
-convSingleLottieTransparentFrames,
 | Format | Animated |
 | ------ | -------- |
 | .gif   | ✔        |
@@ -66,11 +64,9 @@ import shutil
 import subprocess
 from pathlib import Path
 from tempfile import NamedTemporaryFile
-from typing import Any, Awaitable, cast
+from typing import cast
 
 import attr
-import numpy as np
-from deprecation import deprecated
 from PIL import Image
 
 # pylint: disable=too-few-public-methods
@@ -190,7 +186,7 @@ def _getBinDir() -> str:
 	raise OSError(f"Sorry, your environment is not currently supported! {system=} {machine=}")
 
 
-def _scale(dimen: str, scale: float = 1) -> int | str:
+def _scale(dimen: str, scale: float = 1) -> str:
 	"""Get a scaled dimen.
 
 	Args:
@@ -198,137 +194,15 @@ def _scale(dimen: str, scale: float = 1) -> int | str:
 		scale (float): scale
 
 	Returns:
-		Optional[int, str]: scaled dimen (min=1)
+		str: scaled dimen (min=1)
 	"""
 	if scale == 1:
-		return dimen
-	return max(int(int(dimen) * scale), 1)
-
-
-def _getTransparency(image1: np.ndarray, image2: np.ndarray) -> np.ndarray:
-	"""Get the transparent pixels from an image with a red bg and an image with a black bg.
-
-	Args:
-		background (np.ndarray): image1 (the red image)
-		foreground (np.ndarray): image2 (the black image)
-
-	Returns:
-		np.ndarray: pixels for the transparent image
-	"""
-	return np.where(
-		image1[:, :, 0:1] - image2[:, :, 0:1] > 128,
-		np.dstack(
-			(
-				image1[:, :, 0:3],
-				np.zeros([len(image1[0, :, :]), len(image1[:, 0, :]), 1], dtype=np.uint8),
-			)
-		),
-		image1,
-	)
-
-
-@deprecated(deprecated_in="2022", removed_in="", details="Use asyncio.run(convMethod)")
-def run(convMethod: Awaitable) -> Any:
-	"""Use `asyncio.run(convMethod)` in-place of `pyrlottie.run(convMethod)`.
-
-	Run until the future (an instance of Future) has completed.
-
-	If the argument is a coroutine object it is implicitly scheduled to run as a asyncio.Task.
-
-	Return the Future's result or raise its exception.
-
-	Args:
-		convMethod (Awaitable): Awaitable to run. eg.
-		convSingleLottie(gLottieFile, destFiles={"test_data/convSingleLottie.webp"})
-
-	Returns:
-		Any: the Awaitable's result or raise its exception.
-	"""
-	return asyncio.run(convMethod)
-
-
-async def convMultLottieTransparentFrames(
-	lottieFiles: list[LottieFile],
-	frameSkip: int = 0,
-	scale: float = 1,
-) -> dict[str, LottieFrames]:
-	"""Convert multiple lottie files to a dictionary of LottieFile.path to
-	LottieFrames (LottieFile.data and a list of PIL.Image.Image frames) with
-	transparency.
-
-	Args:
-		lottieFiles (list[LottieFile]): the lottie file to convert to frames
-		frameSkip (int, optional): skip n number of frames in the interest of
-		optimisation with a quality trade-off. Defaults to 0.
-		scale (float, optional): upscale/ downscale the images produced. Intended
-		for optimisation with a quality trade-off. Defaults to 1.
-
-	Returns:
-		dict[str, LottieFrames]: a dictionary of LottieFile.path to LottieFrames
-		(LottieFile.data and a list of PIL.Image.Image frames) for each lottieFile
-	"""
-	lottieFrames = {}
-	for future in asyncio.as_completed(
-		[
-			convSingleLottieTransparentFrames(
-				lottieFile=lottieFile,
-				frameSkip=frameSkip,
-				scale=scale,
-			)
-			for lottieFile in lottieFiles
-		]
-	):
-		lottieFrames = {**lottieFrames, **(await future)}
-	return lottieFrames
-
-
-async def convSingleLottieTransparentFrames(
-	lottieFile: LottieFile,
-	frameSkip: int = 0,
-	scale: float = 1,
-) -> dict[str, LottieFrames]:
-	"""Convert a single lottie file to a dictionary of LottieFile.path to
-	LottieFrames (LottieFile.data and a list of PIL.Image.Image frames) with
-	transparency.
-
-	Args:
-		lottieFile (LottieFile): the lottie file to convert to frames
-		frameSkip (int, optional): skip n number of frames in the interest of
-		optimisation with a quality trade-off. Defaults to 0.
-		scale (float, optional): upscale/ downscale the images produced. Intended
-		for optimisation with a quality trade-off. Defaults to 1.
-
-	Returns:
-		dict[str, LottieFrames]: a dictionary of LottieFile.path to LottieFrames
-		(LottieFile.data and a list of PIL.Image.Image frames)
-	"""
-	image1Frames = (
-		await convSingleLottieFrames(
-			lottieFile=lottieFile,
-			backgroundColour="ff0000",
-			frameSkip=frameSkip,
-			scale=scale,
-		)
-	)[lottieFile.path].frames
-	frames = []
-	for index, layer in enumerate(
-		(
-			await convSingleLottieFrames(
-				lottieFile=lottieFile,
-				frameSkip=frameSkip,
-				scale=scale,
-			)
-		)[lottieFile.path].frames
-	):
-		frames.append(
-			Image.fromarray(_getTransparency(np.array(image1Frames[index]), np.array(layer)))
-		)
-	return {lottieFile.path: LottieFrames(data=lottieFile.data, frames=frames)}
+		return str(dimen)
+	return str(max(int(int(dimen) * scale), 1))
 
 
 async def convMultLottieFrames(
 	lottieFiles: list[LottieFile],
-	backgroundColour: str = "000000",
 	frameSkip: int = 0,
 	scale: float = 1,
 ) -> dict[str, LottieFrames]:
@@ -337,8 +211,6 @@ async def convMultLottieFrames(
 
 	Args:
 		lottieFiles (list[LottieFile]): the lottie file to convert to frames
-		backgroundColour (str, optional): hex colour in the form rrggbb. Defaults
-		to "000000".
 		frameSkip (int, optional): skip n number of frames in the interest of
 		optimisation with a quality trade-off. Defaults to 0.
 		scale (float, optional): upscale/ downscale the images produced. Intended
@@ -353,7 +225,6 @@ async def convMultLottieFrames(
 		[
 			convSingleLottieFrames(
 				lottieFile=lottieFile,
-				backgroundColour=backgroundColour,
 				frameSkip=frameSkip,
 				scale=scale,
 			)
@@ -366,7 +237,6 @@ async def convMultLottieFrames(
 
 async def convSingleLottieFrames(
 	lottieFile: LottieFile,
-	backgroundColour: str = "000000",
 	frameSkip: int = 0,
 	scale: float = 1,
 ) -> dict[str, LottieFrames]:
@@ -375,8 +245,6 @@ async def convSingleLottieFrames(
 
 	Args:
 		lottieFile (LottieFile): the lottie file to convert to frames
-		backgroundColour (str, optional): hex colour in the form rrggbb. Defaults
-		to "000000".
 		frameSkip (int, optional): skip n number of frames in the interest of
 		optimisation with a quality trade-off. Defaults to 0.
 		scale (float, optional): upscale/ downscale the images produced. Intended
@@ -391,13 +259,12 @@ async def convSingleLottieFrames(
 	await convSingleLottie(
 		lottieFile=lottieFile,
 		destFiles={placeholderFile},
-		backgroundColour=backgroundColour,
 		frameSkip=frameSkip,
 		scale=scale,
 	)
 	img = Image.open(placeholderFile)
 	frames = []
-	for index in range(img.n_frames):  # type: ignore
+	for index in range(img.n_frames):
 		img.seek(index)
 		frames.append(img.copy())
 	os.remove(placeholderFile)
@@ -446,7 +313,7 @@ async def convMultLottie(
 	return destFiles
 
 
-async def convSingleLottie(
+async def convSingleLottie(  # pylint: disable=too-many-arguments
 	lottieFile: LottieFile = None,
 	destFiles: set[str] = None,
 	filemap: FileMap = None,
@@ -497,27 +364,26 @@ async def convSingleLottie(
 
 	# lottie2gif
 	gifFiles = [file for file in destFiles if file.endswith(".gif")]
-	if len(gifFiles) < 1:
-		with NamedTemporaryFile(suffix=".gif") as namedTemporaryFile:
-			gifFiles = [namedTemporaryFile.name]
-	cmd = (
-		f"{binDir}/lottie2gif {lottieFile.path} {_scale(lottieFile.data['w'], scale)}"
-		f"x{_scale(lottieFile.data['h'], scale)} {backgroundColour} {gifFiles[0]} {frameSkip}"
+	webpFiles = [file for file in destFiles if file.endswith(".webp")]
+	cmd = " ".join(
+		[
+			f"{binDir}/lottie2img",
+			lottieFile.path,
+			_scale(lottieFile.data["w"], scale),
+			_scale(lottieFile.data["h"], scale),
+			backgroundColour,
+			f"-gif {gifFiles[0]}" if len(gifFiles) > 0 else "",
+			f"-webp {webpFiles[0]}" if len(webpFiles) > 0 else "",
+			f"-fs {frameSkip}",
+		]
 	)
+
 	ret = await _execSubprocess(cmd)
 	if ret[0] > 0:
 		raise RuntimeError(f"{cmd=}: {ret=}")
 	for gifFile in gifFiles[1:]:
 		shutil.copy(gifFiles[0], gifFile)
-
-	# gif2webp
-	webpFiles = [file for file in destFiles if file.endswith(".webp")]
-	if len(webpFiles):
-		cmd = f"{binDir}/gif2webp {gifFiles[0]} -o {webpFiles[0]} -mt"
-		ret = await _execSubprocess(cmd)
-		if ret[0] > 0:
-			raise RuntimeError(f"{cmd=}: {ret=}")
-		for webpFile in webpFiles[1:]:
-			shutil.copy(webpFiles[0], webpFile)
+	for webpFile in webpFiles[1:]:
+		shutil.copy(webpFiles[0], webpFile)
 
 	return destFiles

@@ -3,6 +3,7 @@ requirements_optional.txt
 build_*/
 *.prof
 .vagrant
+.vscode
 
 # Prerequisites
 *.d

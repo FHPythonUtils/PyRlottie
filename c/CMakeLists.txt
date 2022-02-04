@@ -5,10 +5,10 @@ cmake_minimum_required(VERSION 3.0)
 project(lottie2img)
 
 if (WIN32 AND NOT BUILD_SHARED_LIBS)
-    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
-    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MTd")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MDd")
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MDd")
 endif()
 
-#add_subdirectory("libraries/libwebp")
+add_subdirectory("libraries/libwebp")
 add_subdirectory("libraries/rlottie")
 add_subdirectory("src")

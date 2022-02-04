@@ -3,12 +3,13 @@
 // Stdlib
 #include <stdio.h>
 #include <math.h>
+#include <fstream>
 
 #include <string>
 
 // Third party
-// #include "webp/encode.h"
-// #include "webp/mux.h"
+#include "webp/encode.h"
+#include "webp/mux.h"
 #include "rlottie.h"
 #include "gif.h"
 
@@ -31,6 +32,13 @@ int help()
 	printf("  lottie2img 3d.json 500 500 00ff00ff -gif 3d.gif\n");
 	return 1;
 }
+
+int error(std::string s)
+{
+	printf(s.c_str());
+	return 2;
+}
+
 
 /*
 main entry point
@@ -77,14 +85,14 @@ int main(int argc, char **argv)
 		auto player = rlottie::Animation::loadFromFile(lottiefilename);
 		if (!player)
 		{
-			return help();
+			return error("Failed to parse lottie file\n");
 		}
 
-		auto buffer =
-			std::unique_ptr<uint32_t[]>(new uint32_t[width_px * height_px]);
+		auto buffer = std::unique_ptr<uint32_t[]>(new uint32_t[width_px * height_px]);
 		size_t frameCount = player->totalFrame();
-		size_t delay =
-			(size_t)round(100 * (frame_skip + 1) / player->frameRate());
+		int step = (frame_skip + 1);
+		size_t delay_ms = (size_t)round(1000 * step / player->frameRate());
+		size_t delay_cs = (size_t)round(100 * step / player->frameRate());
 
 		/*
 		Write to a gif
@@ -92,9 +100,8 @@ int main(int argc, char **argv)
 		if (gif)
 		{
 			GifWriter handle;
-			GifBegin(&handle, gif, width_px, height_px,
-					 delay);
-			for (size_t i = 0; i < frameCount; i += (frame_skip + 1))
+			GifBegin(&handle, gif, width_px, height_px, delay_cs);
+			for (size_t i = 0; i < frameCount; i += step)
 			{
 				rlottie::Surface surface(buffer.get(), width_px, height_px,
 										 width_px * 4);
@@ -142,7 +149,7 @@ int main(int argc, char **argv)
 					}
 				}
 				GifWriteFrame(&handle, reinterpret_cast<uint8_t *>(surface.buffer()),
-							  surface.width(), surface.height(), delay);
+							  surface.width(), surface.height(), delay_cs);
 			}
 
 			GifEnd(&handle);
@@ -150,6 +157,56 @@ int main(int argc, char **argv)
 
 		if (webp)
 		{
+			WebPAnimEncoderOptions enc_options;
+			WebPConfig config;
+			WebPAnimEncoder *enc;
+			WebPData webp_data;
+			WebPPicture pic;
+
+			WebPAnimEncoderOptionsInit(&enc_options); // works
+			WebPConfigInit(&config);				  // works
+			WebPDataInit(&webp_data);
+			WebPPictureInit(&pic); // works
+
+			config.lossless = 0;
+			config.method = 0;
+
+			enc_options.kmin = config.lossless ? 9 : 3;
+    		enc_options.kmax = config.lossless ? 17 : 5;
+
+			pic.use_argb = 1;
+			pic.width = width_px;
+			pic.height = height_px;
+
+
+			enc = WebPAnimEncoderNew(width_px, height_px, &enc_options);
+			if (!enc)
+			{
+				return error("Failed to create webp image\n");
+			}
+
+			for (size_t i = 0; i < frameCount; i += step)
+			{
+				rlottie::Surface surface(buffer.get(), width_px, height_px,
+										 width_px * 4);
+				player->renderSync(i, surface);
+				uint8_t *buffer = reinterpret_cast<uint8_t *>(surface.buffer());
+				if(!WebPPictureImportBGRA(&pic, buffer, width_px * 4)){
+					return error("Error converting buffer to frame\n");
+				}
+				if(!WebPAnimEncoderAdd(enc, &pic, round(delay_ms * i), &config)){
+					return error("Error while adding frame\n");
+				}
+			}
+
+			WebPAnimEncoderAdd(enc, NULL, round(delay_ms * frameCount), NULL);
+			WebPAnimEncoderAssemble(enc, &webp_data);
+			WebPAnimEncoderDelete(enc);
+
+			std::ofstream file;
+    		file.open(webp, std::ios_base::binary);
+			file.write((const char*)webp_data.bytes, webp_data.size);
+			file.close();
 		}
 	}
 

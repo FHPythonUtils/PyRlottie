@@ -1,3 +1,4 @@
+import asyncio
 import sys
 from pathlib import Path
 
@@ -12,8 +13,7 @@ from pyrlottie import (
 	LottieFile,
 	convMultLottie,
 	convSingleLottie,
-	convSingleLottieTransparentFrames,
-	run,
+	convSingleLottieFrames,
 )
 
 gLottieFile = LottieFile(f"{THISDIR}/data/3d.json")
@@ -22,7 +22,7 @@ gLottieFile = LottieFile(f"{THISDIR}/data/3d.json")
 def test_convSingleLottie():
 	"""test_convSingleLottie"""
 	outputFile = f"{THISDIR}/data/convSingleLottie.webp"
-	run(
+	asyncio.run(
 		convSingleLottie(gLottieFile, destFiles={outputFile}),
 	)
 	output = Image.open(outputFile)
@@ -40,7 +40,7 @@ def test_convSingleLottie():
 
 def test_convMultLottie():
 	"""test_convMultLottie"""
-	run(
+	asyncio.run(
 		convMultLottie(
 			[
 				FileMap(
@@ -59,12 +59,12 @@ def test_convMultLottie():
 		)
 
 
-def test_convSingleLottieTransparentFrames():
-	"""test_convSingleLottieTransparentFrames"""
-	gLottieFrames = run(convSingleLottieTransparentFrames(gLottieFile))
+def test_convSingleLottieFrames():
+	"""test_convSingleLottieFrames"""
+	gLottieFrames = asyncio.run(convSingleLottieFrames(gLottieFile))
 	layers = gLottieFrames[gLottieFile.path].frames
 	print(len(layers))
-	outputFile = f"{THISDIR}/data/convSingleLottieTransparentFrames.webp"
+	outputFile = f"{THISDIR}/data/convSingleLottieFrames.webp"
 	layers[0].save(
 		outputFile,
 		duration=int(1000 / gLottieFile.data["fr"]),
@@ -72,7 +72,7 @@ def test_convSingleLottieTransparentFrames():
 		append_images=layers[1:],
 	)
 	output = Image.open(outputFile)
-	expected = Image.open(f"{THISDIR}/data/convSingleLottieTransparentFrames_expected.webp")
+	expected = Image.open(f"{THISDIR}/data/convSingleLottieFrames_expected.webp")
 	assert output.n_frames == expected.n_frames
 	for frame in range(output.n_frames):
 		output.seek(frame)
@@ -87,4 +87,4 @@ def test_convSingleLottieTransparentFrames():
 if __name__ == "__main__":
 	test_convSingleLottie()
 	test_convMultLottie()
-	test_convSingleLottieTransparentFrames()
+	test_convSingleLottieFrames()
