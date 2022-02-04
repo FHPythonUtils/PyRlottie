@@ -1,6 +1,0 @@
-[submodule "c/libraries/rlottie"]
-	path = c/libraries/rlottie
-	url = https://github.com/Samsung/rlottie
-[submodule "c/libraries/libwebp"]
-	path = c/libraries/libwebp
-	url = https://github.com/webmproject/libwebp
