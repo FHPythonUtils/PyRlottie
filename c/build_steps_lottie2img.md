@@ -71,8 +71,8 @@ Requirements: amd64 Windows 10
 
 ```sh
 cmake -Bbuild_windows_amd64 -DBUILD_SHARED_LIBS=OFF
-cmake --build build_windows_amd64
--> build_windows_amd64\src\Debug\lottie2img.exe
+cmake --build build_windows_amd64 --config Release
+-> build_windows_amd64\src\Release\lottie2img.exe
 ```
 
 ### windows_arm64
@@ -84,6 +84,6 @@ Requirements: amd64 Windows 10
 
 ```sh
 cmake -Bbuild_windows_arm64 -DBUILD_SHARED_LIBS=OFF -AARM64
-cmake --build build_windows_arm64
--> build_windows_arm64\src\Debug\lottie2img.exe
+cmake --build build_windows_arm64 --config Release
+-> build_windows_arm64\src\Release\lottie2img.exe
 ```

@@ -2,7 +2,6 @@
 """
 from __future__ import annotations
 
-import asyncio
 import sys
 import time
 from pathlib import Path
@@ -17,6 +16,7 @@ from pyrlottie import (
 	convMultLottieFrames,
 	convSingleLottie,
 	convSingleLottieFrames,
+	run,
 )
 
 gLottieFile = LottieFile(f"{THISDIR}/data/3d.json")
@@ -24,7 +24,7 @@ gLottieFile = LottieFile(f"{THISDIR}/data/3d.json")
 # convSingleLottie
 teststart = start = time.time()
 print(
-	asyncio.run(
+	run(
 		convSingleLottie(gLottieFile, destFiles={f"{THISDIR}/data/convSingleLottie.webp"}),
 	)
 )
@@ -35,7 +35,7 @@ print(f"Time taken (convSingleLottie) - {(end - start):.3f}s")
 # convMultLottie
 start = time.time()
 print(
-	asyncio.run(
+	run(
 		convMultLottie([FileMap(gLottieFile, {f"{THISDIR}/data/convMultLottie.webp"})] * 10),
 	)
 )
@@ -46,7 +46,7 @@ print(f"Time taken (convMultLottie) - {(end - start):.3f}s")
 # convMultLottie
 start = time.time()
 print(
-	asyncio.run(
+	run(
 		convMultLottie(
 			[
 				FileMap(
@@ -65,19 +65,19 @@ print(f"Time taken (convMultLottie:tgs) - {(end - start):.3f}s")
 
 # convSingleLottieFrames
 start = time.time()
-print(len((asyncio.run(convSingleLottieFrames(gLottieFile)))[gLottieFile.path].frames))
+print(len((run(convSingleLottieFrames(gLottieFile)))[gLottieFile.path].frames))
 end = time.time()
 print(f"Time taken (convSingleLottieFrames) - {(end - start):.3f}s")
 
 # convMultLottieFrames
 start = time.time()
-print(len(asyncio.run(convMultLottieFrames([gLottieFile for _ in range(10)]))))
+print(len(run(convMultLottieFrames([gLottieFile for _ in range(10)]))))
 end = time.time()
 print(f"Time taken (convMultLottieFrames) - {(end - start):.3f}s")
 
 # convSingleLottieFrames
 start = time.time()
-gLottieFrames = asyncio.run(convSingleLottieFrames(gLottieFile))
+gLottieFrames = run(convSingleLottieFrames(gLottieFile))
 layers = gLottieFrames[gLottieFile.path].frames
 print(len(layers))
 layers[0].save(
@@ -91,7 +91,7 @@ print(f"Time taken (convSingleLottieFrames) - {(end - start):.3f}s")
 
 # convMultLottieFrames
 start = time.time()
-print(len(asyncio.run(convMultLottieFrames([gLottieFile for _ in range(10)]))))
+print(len(run(convMultLottieFrames([gLottieFile for _ in range(10)]))))
 end = time.time()
 print(f"Time taken (convMultLottieFrames) - {(end - start):.3f}s")
 
@@ -99,7 +99,7 @@ print(f"Time taken (convMultLottieFrames) - {(end - start):.3f}s")
 start = time.time()
 print(
 	len(
-		asyncio.run(
+		run(
 			convMultLottieFrames(
 				[LottieFile(f"{THISDIR}/data/file_43{i}.tgs") for i in range(4, 10)]
 			)
@@ -113,7 +113,7 @@ print(f"Time taken (convMultLottieFrames:tgs) - {(end - start):.3f}s")
 start = time.time()
 print(
 	len(
-		asyncio.run(
+		run(
 			convMultLottieFrames(
 				[LottieFile(f"{THISDIR}/data/file_43{i}.tgs") for i in range(4, 10)], 1
 			)

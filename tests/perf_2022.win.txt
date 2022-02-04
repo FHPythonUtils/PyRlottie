@@ -1,0 +1,19 @@
+{'\\tests/data/convSingleLottie.webp'}
+Time taken (convSingleLottie) - 1.309s
+{'\\tests/data/convMultLottie.webp'}
+Time taken (convMultLottie) - 3.015s
+{'\\tests/data/file_438.webp', '\\tests/data/file_436.webp', '\\tests/data/file_435.webp', '\\tests/data/file_437.webp', '\\tests/data/file_434.webp', '\\tests/data/file_439.webp'}
+Time taken (convMultLottie:tgs) - 63.724s
+56
+Time taken (convSingleLottieFrames) - 1.636s
+1
+Time taken (convMultLottieFrames) - 3.683s
+56
+Time taken (convSingleLottieTransparentFrames) - 3.754s
+1
+Time taken (convMultLottieTransparentFrames) - 11.931s
+6
+Time taken (convMultLottieTransparentFrames:tgs) - 53.492s
+6
+Time taken (convMultLottieTransparentFrames:tgs:frameSkip=1=30fps) - 24.570s
+## Total time taken - 167.114s

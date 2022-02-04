@@ -64,7 +64,7 @@ import shutil
 import subprocess
 from pathlib import Path
 from tempfile import NamedTemporaryFile
-from typing import cast
+from typing import Any, Awaitable, cast
 
 import attr
 from PIL import Image
@@ -72,7 +72,7 @@ from PIL import Image
 # pylint: disable=too-few-public-methods
 
 THISDIR = str(Path(__file__).resolve().parent)
-SEM = asyncio.Semaphore(multiprocessing.cpu_count() * 2)
+SEM = asyncio.Semaphore(multiprocessing.cpu_count())
 
 
 @attr.s
@@ -199,6 +199,23 @@ def _scale(dimen: str, scale: float = 1) -> str:
 	if scale == 1:
 		return str(dimen)
 	return str(max(int(int(dimen) * scale), 1))
+
+
+def run(convMethod: Awaitable) -> Any:
+	"""Use `pyrlottie.run(convMethod)` or `asyncio.get_event_loop().run_until_complete(convMethod)`
+	in place of `asyncio.run(convMethod)`
+	See https://github.com/awestlake87/pyo3-asyncio/issues/19#issuecomment-846686814
+	for more information
+	Run until the future (an instance of Future) has completed.
+	If the argument is a coroutine object it is implicitly scheduled to run as a asyncio.Task.
+	Return the Future’s result or raise its exception.
+	Args:
+		convMethod (Awaitable): Awaitable to run. eg.
+		convSingleLottie(gLottieFile, destFiles={"test_data/convSingleLottie.webp"})
+	Returns:
+		Any: the Awaitable's result or raise its exception.
+	"""
+	return asyncio.get_event_loop().run_until_complete(convMethod)
 
 
 async def convMultLottieFrames(
