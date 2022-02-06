@@ -61,7 +61,6 @@ import multiprocessing
 import os
 import platform
 import shutil
-import subprocess
 from pathlib import Path
 from tempfile import NamedTemporaryFile
 from typing import Any, Awaitable, cast
@@ -147,12 +146,11 @@ class LottieFrames:
 	frames: list[Image.Image] = attr.ib()
 
 
-async def _execSubprocess(command: str, errorAsOut: bool = True) -> tuple[int, bytes]:
+async def _execSubprocess(command: str) -> tuple[int, bytes]:
 	"""Execute a command and check for errors.
 
 	Args:
 		command (str): commands as a string
-		errorAsOut (bool, optional): redirect errors to stdout
 
 	Returns:
 		tuple[int, bytes]: tuple of return code (int) and stdout (str)
@@ -160,13 +158,9 @@ async def _execSubprocess(command: str, errorAsOut: bool = True) -> tuple[int, b
 	async with SEM:
 		process = await asyncio.create_subprocess_shell(
 			command,
-			shell=True,
-			stdout=subprocess.PIPE,
-			stderr=subprocess.STDOUT if errorAsOut else subprocess.PIPE,
 		)
-		out = await process.communicate()
-		exitCode = process.returncode
-		return exitCode, out[0]  # type: ignore
+		exitCode = await process.wait()
+		return exitCode, b""
 
 
 def _getBinDir() -> str:
@@ -370,11 +364,6 @@ async def convSingleLottie(  # pylint: disable=too-many-arguments
 	if lottieFile is None:
 		raise ValueError
 	destFiles = destFiles or {"out.gif"}
-	destFiles = {
-		destFile
-		for destFile in destFiles
-		if destFile.rsplit(".", maxsplit=1)[-1] in ("webp", "gif")
-	}
 
 	# Get bin location
 	binDir = _getBinDir()

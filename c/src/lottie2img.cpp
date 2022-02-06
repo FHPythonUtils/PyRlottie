@@ -39,7 +39,6 @@ int error(std::string s)
 	return 2;
 }
 
-
 /*
 main entry point
 */
@@ -94,118 +93,112 @@ int main(int argc, char **argv)
 		size_t delay_ms = (size_t)round(1000 * step / player->frameRate());
 		size_t delay_cs = (size_t)round(100 * step / player->frameRate());
 
-		/*
-		Write to a gif
-		*/
-		if (gif)
+		// GIF
+		GifWriter handle;
+		GifBegin(&handle, gif, width_px, height_px, delay_cs);
+
+		// WEBP
+		WebPAnimEncoderOptions enc_options;
+		WebPConfig config;
+		WebPAnimEncoder *enc;
+		WebPData webp_data;
+		WebPPicture pic;
+
+		WebPAnimEncoderOptionsInit(&enc_options);
+		WebPConfigInit(&config);
+		WebPDataInit(&webp_data);
+		WebPPictureInit(&pic);
+
+		config.lossless = 0;
+		config.method = 0;
+
+		enc_options.kmin = config.lossless ? 9 : 3;
+		enc_options.kmax = config.lossless ? 17 : 5;
+
+		pic.use_argb = 1;
+		pic.width = width_px;
+		pic.height = height_px;
+
+		enc = WebPAnimEncoderNew(width_px, height_px, &enc_options);
+
+		for (size_t i = 0; i < frameCount; i += step)
 		{
-			GifWriter handle;
-			GifBegin(&handle, gif, width_px, height_px, delay_cs);
-			for (size_t i = 0; i < frameCount; i += step)
+			rlottie::Surface surface(buffer.get(), width_px, height_px,
+									 width_px * 4);
+			player->renderSync(i, surface);
+			uint8_t *buffer = reinterpret_cast<uint8_t *>(surface.buffer());
+			uint32_t totalBytes = surface.height() * surface.bytesPerLine();
+
+			for (uint32_t i = 0; i < totalBytes; i += 4)
 			{
-				rlottie::Surface surface(buffer.get(), width_px, height_px,
-										 width_px * 4);
-				player->renderSync(i, surface);
-				uint8_t *buffer = reinterpret_cast<uint8_t *>(surface.buffer());
-				uint32_t totalBytes = surface.height() * surface.bytesPerLine();
-
-				for (uint32_t i = 0; i < totalBytes; i += 4)
+				unsigned char a = buffer[i + 3];
+				// compute only if alpha is non zero
+				if (a)
 				{
-					unsigned char a = buffer[i + 3];
-					// compute only if alpha is non zero
-					if (a)
-					{
-						unsigned char r = buffer[i + 2];
-						unsigned char g = buffer[i + 1];
-						unsigned char b = buffer[i];
+					unsigned char r = buffer[i + 2];
+					unsigned char g = buffer[i + 1];
+					unsigned char b = buffer[i];
 
-						if (a != 255)
-						{ // un premultiply
-							unsigned char r2 =
-								(unsigned char)((float)bgcolor_r *
-												((float)(255 - a) / 255));
-							unsigned char g2 =
-								(unsigned char)((float)bgcolor_g *
-												((float)(255 - a) / 255));
-							unsigned char b2 =
-								(unsigned char)((float)bgcolor_b *
-												((float)(255 - a) / 255));
-							buffer[i] = r + r2;
-							buffer[i + 1] = g + g2;
-							buffer[i + 2] = b + b2;
-						}
-						else
-						{
-							// only swizzle r and b
-							buffer[i] = r;
-							buffer[i + 2] = b;
-						}
+					if (a != 255)
+					{ // un premultiply
+						unsigned char r2 =
+							(unsigned char)((float)bgcolor_r *
+											((float)(255 - a) / 255));
+						unsigned char g2 =
+							(unsigned char)((float)bgcolor_g *
+											((float)(255 - a) / 255));
+						unsigned char b2 =
+							(unsigned char)((float)bgcolor_b *
+											((float)(255 - a) / 255));
+						buffer[i] = r + r2;
+						buffer[i + 1] = g + g2;
+						buffer[i + 2] = b + b2;
 					}
 					else
 					{
-						buffer[i + 2] = bgcolor_b;
-						buffer[i + 1] = bgcolor_g;
-						buffer[i] = bgcolor_r;
+						// only swizzle r and b
+						buffer[i] = r;
+						buffer[i + 2] = b;
 					}
 				}
+				else
+				{
+					buffer[i + 2] = bgcolor_b;
+					buffer[i + 1] = bgcolor_g;
+					buffer[i] = bgcolor_r;
+				}
+			}
+			// GIF
+			if (gif)
+			{
 				GifWriteFrame(&handle, reinterpret_cast<uint8_t *>(surface.buffer()),
 							  surface.width(), surface.height(), delay_cs);
 			}
 
+			// WEBP
+			if (webp)
+			{
+				WebPPictureImportRGBA(&pic, buffer, width_px * 4);
+				WebPAnimEncoderAdd(enc, &pic, round(delay_ms * i), &config);
+			}
+		}
+
+		// GIF
+		if (gif)
+		{
 			GifEnd(&handle);
 		}
 
+		// WEBP
 		if (webp)
 		{
-			WebPAnimEncoderOptions enc_options;
-			WebPConfig config;
-			WebPAnimEncoder *enc;
-			WebPData webp_data;
-			WebPPicture pic;
-
-			WebPAnimEncoderOptionsInit(&enc_options); // works
-			WebPConfigInit(&config);				  // works
-			WebPDataInit(&webp_data);
-			WebPPictureInit(&pic); // works
-
-			config.lossless = 0;
-			config.method = 0;
-
-			enc_options.kmin = config.lossless ? 9 : 3;
-    		enc_options.kmax = config.lossless ? 17 : 5;
-
-			pic.use_argb = 1;
-			pic.width = width_px;
-			pic.height = height_px;
-
-
-			enc = WebPAnimEncoderNew(width_px, height_px, &enc_options);
-			if (!enc)
-			{
-				return error("Failed to create webp image\n");
-			}
-
-			for (size_t i = 0; i < frameCount; i += step)
-			{
-				rlottie::Surface surface(buffer.get(), width_px, height_px,
-										 width_px * 4);
-				player->renderSync(i, surface);
-				uint8_t *buffer = reinterpret_cast<uint8_t *>(surface.buffer());
-				if(!WebPPictureImportBGRA(&pic, buffer, width_px * 4)){
-					return error("Error converting buffer to frame\n");
-				}
-				if(!WebPAnimEncoderAdd(enc, &pic, round(delay_ms * i), &config)){
-					return error("Error while adding frame\n");
-				}
-			}
-
 			WebPAnimEncoderAdd(enc, NULL, round(delay_ms * frameCount), NULL);
 			WebPAnimEncoderAssemble(enc, &webp_data);
 			WebPAnimEncoderDelete(enc);
 
 			std::ofstream file;
-    		file.open(webp, std::ios_base::binary);
-			file.write((const char*)webp_data.bytes, webp_data.size);
+			file.open(webp, std::ios_base::binary);
+			file.write((const char *)webp_data.bytes, webp_data.size);
 			file.close();
 		}
 	}

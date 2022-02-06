@@ -1,0 +1,20 @@
+time ./lottie2img 3d.json 500 500 44ff0000 -gif 3d.gif -webp 3d.webp
+
+real    0m0.819s
+user    0m0.703s
+sys     0m0.094s
+
+Measure-Command {.\lottie2img.exe 3d.json 500 500 44ff0000 -gif 3d.gif -webp 3d.webp}
+
+
+Days              : 0
+Hours             : 0
+Minutes           : 0
+Seconds           : 1
+Milliseconds      : 270
+Ticks             : 12702065
+TotalDays         : 1.47014641203704E-05
+TotalHours        : 0.000352835138888889
+TotalMinutes      : 0.0211701083333333
+TotalSeconds      : 1.2702065
+TotalMilliseconds : 1270.2065

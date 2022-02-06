@@ -59,9 +59,7 @@ convMultLottie, convSingleLottie
 | .webp  | ✔        |
 
 convMultLottieFrames,
-convMultLottieTransparentFrames,
 convSingleLottieFrames,
-convSingleLottieTransparentFrames
 
 | Format | Animated |
 | ------ | -------- |
@@ -116,6 +114,7 @@ See the [Docs](/DOCS/) for more information.
 | linux_x86_64  | ✔         |
 | linux_aarch64 | ✔         |
 | windows_amd64 | ✔         |
+| windows_arm64 | ✔         |
 | darwin_x86_64 | ❌       |
 | darwin_arm64  | ❌       |
 
