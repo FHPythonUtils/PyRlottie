@@ -1,10 +1,10 @@
-# pyrlottie
+# Pyrlottie
 
-> Auto-generated documentation for [pyrlottie](../../pyrlottie/__init__.py) module.
+> Auto-generated documentation for [pyrlottie](../../../pyrlottie/__init__.py) module.
 
 Convert .tgs and .lottie to .webp or .gif using rlottie.
 
-- [Pyrlottie](../README.md#pyrlottie-index) / [Modules](../README.md#pyrlottie-modules) / pyrlottie
+- [Pyrlottie](../README.md#pyrlottie-index) / [Modules](../MODULES.md#pyrlottie-modules) / Pyrlottie
     - [Formats](#formats)
     - [Basic Usage](#basic-usage)
     - [FileMap](#filemap)
@@ -75,7 +75,7 @@ frames = run(
 
 ## FileMap
 
-[[find in source code]](../../pyrlottie/__init__.py#L128)
+[[find in source code]](../../../pyrlottie/__init__.py#L127)
 
 ```python
 attr.s
@@ -91,7 +91,7 @@ FileMap. Map a LottieFile to a set of destination/output files.
 
 ## LottieFile
 
-[[find in source code]](../../pyrlottie/__init__.py#L83)
+[[find in source code]](../../../pyrlottie/__init__.py#L82)
 
 ```python
 attr.s
@@ -111,7 +111,7 @@ LottieFile. Load a lottie/tgs has a path and data (json/dict).
 
 ### LottieFile().\_\_attrs\_post\_init\_\_
 
-[[find in source code]](../../pyrlottie/__init__.py#L97)
+[[find in source code]](../../../pyrlottie/__init__.py#L96)
 
 ```python
 def __attrs_post_init__() -> None:
@@ -130,7 +130,7 @@ LottieFile __attrs_post_init__ called by attrs.
 
 ## LottieFrames
 
-[[find in source code]](../../pyrlottie/__init__.py#L141)
+[[find in source code]](../../../pyrlottie/__init__.py#L140)
 
 ```python
 attr.s
@@ -147,7 +147,7 @@ and a list of PIL.Image.Image(s) containing frame data.
 
 ## convMultLottie
 
-[[find in source code]](../../pyrlottie/__init__.py#L407)
+[[find in source code]](../../../pyrlottie/__init__.py#L401)
 
 ```python
 async def convMultLottie(
@@ -181,9 +181,13 @@ for optimisation with a quality trade-off. Defaults to 1.
 
 - `set[str]` - set of successfully converted files
 
+#### See also
+
+- [FileMap](#filemap)
+
 ## convMultLottieFrames
 
-[[find in source code]](../../pyrlottie/__init__.py#L329)
+[[find in source code]](../../../pyrlottie/__init__.py#L323)
 
 ```python
 async def convMultLottieFrames(
@@ -191,7 +195,7 @@ async def convMultLottieFrames(
     backgroundColour: str = '000000',
     frameSkip: int = 0,
     scale: float = 1,
-) -> dict[(str, LottieFrames)]:
+) -> dict[str, LottieFrames]:
 ```
 
 Convert multiple lottie files to a dictionary of LottieFile.path to
@@ -212,16 +216,21 @@ for optimisation with a quality trade-off. Defaults to 1.
 - `dict[str,` *LottieFrames]* - a dictionary of LottieFile.path to LottieFrames
 (LottieFile.data and a list of PIL.Image.Image frames) for each lottieFile
 
+#### See also
+
+- [LottieFile](#lottiefile)
+- [LottieFrames](#lottieframes)
+
 ## convMultLottieTransparentFrames
 
-[[find in source code]](../../pyrlottie/__init__.py#L250)
+[[find in source code]](../../../pyrlottie/__init__.py#L244)
 
 ```python
 async def convMultLottieTransparentFrames(
     lottieFiles: list[LottieFile],
     frameSkip: int = 0,
     scale: float = 1,
-) -> dict[(str, LottieFrames)]:
+) -> dict[str, LottieFrames]:
 ```
 
 Convert multiple lottie files to a dictionary of LottieFile.path to
@@ -241,9 +250,14 @@ for optimisation with a quality trade-off. Defaults to 1.
 - `dict[str,` *LottieFrames]* - a dictionary of LottieFile.path to LottieFrames
 (LottieFile.data and a list of PIL.Image.Image frames) for each lottieFile
 
+#### See also
+
+- [LottieFile](#lottiefile)
+- [LottieFrames](#lottieframes)
+
 ## convSingleLottie
 
-[[find in source code]](../../pyrlottie/__init__.py#L449)
+[[find in source code]](../../../pyrlottie/__init__.py#L443)
 
 ```python
 async def convSingleLottie(
@@ -291,7 +305,7 @@ for optimisation with a quality trade-off. Defaults to 1.
 
 ## convSingleLottieFrames
 
-[[find in source code]](../../pyrlottie/__init__.py#L367)
+[[find in source code]](../../../pyrlottie/__init__.py#L361)
 
 ```python
 async def convSingleLottieFrames(
@@ -299,7 +313,7 @@ async def convSingleLottieFrames(
     backgroundColour: str = '000000',
     frameSkip: int = 0,
     scale: float = 1,
-) -> dict[(str, LottieFrames)]:
+) -> dict[str, LottieFrames]:
 ```
 
 Convert a single lottie file to a dictionary of LottieFile.path to
@@ -323,17 +337,18 @@ for optimisation with a quality trade-off. Defaults to 1.
 #### See also
 
 - [LottieFile](#lottiefile)
+- [LottieFrames](#lottieframes)
 
 ## convSingleLottieTransparentFrames
 
-[[find in source code]](../../pyrlottie/__init__.py#L285)
+[[find in source code]](../../../pyrlottie/__init__.py#L279)
 
 ```python
 async def convSingleLottieTransparentFrames(
     lottieFile: LottieFile,
     frameSkip: int = 0,
     scale: float = 1,
-) -> dict[(str, LottieFrames)]:
+) -> dict[str, LottieFrames]:
 ```
 
 Convert a single lottie file to a dictionary of LottieFile.path to
@@ -356,27 +371,23 @@ for optimisation with a quality trade-off. Defaults to 1.
 #### See also
 
 - [LottieFile](#lottiefile)
+- [LottieFrames](#lottieframes)
 
 ## run
 
-[[find in source code]](../../pyrlottie/__init__.py#L230)
+[[find in source code]](../../../pyrlottie/__init__.py#L227)
 
 ```python
-@deprecated(
-    deprecated_in='2022',
-    removed_in='',
-    details='asyncio.run(convMethod)',
-)
 def run(convMethod: Awaitable) -> Any:
 ```
 
-Use `asyncio.run(convMethod)` in-place of this method.
-
+Use `pyrlottie.run(convMethod)` or `asyncio.get_event_loop().run_until_complete(convMethod)`
+in place of `asyncio.run(convMethod)`
+See https://github.com/awestlake87/pyo3-asyncio/issues/19#issuecomment-846686814
+for more information
 Run until the future (an instance of Future) has completed.
-
 If the argument is a coroutine object it is implicitly scheduled to run as a asyncio.Task.
-
-Return the Future's result or raise its exception.
+Return the Future’s result or raise its exception.
 
 #### Arguments
 

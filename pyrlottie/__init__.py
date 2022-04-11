@@ -70,13 +70,12 @@ from typing import Any, Awaitable, cast
 
 import attr
 import numpy as np
-from deprecation import deprecated
 from PIL import Image
 
 # pylint: disable=too-few-public-methods
 
 THISDIR = str(Path(__file__).resolve().parent)
-SEM = asyncio.Semaphore(multiprocessing.cpu_count() * 2)
+SEM = asyncio.Semaphore(multiprocessing.cpu_count())
 
 
 @attr.s
@@ -151,12 +150,11 @@ class LottieFrames:
 	frames: list[Image.Image] = attr.ib()
 
 
-async def _execSubprocess(command: str, errorAsOut: bool = True) -> tuple[int, bytes]:
+async def _execSubprocess(command: str) -> tuple[int, bytes]:
 	"""Execute a command and check for errors.
 
 	Args:
 		command (str): commands as a string
-		errorAsOut (bool, optional): redirect errors to stdout
 
 	Returns:
 		tuple[int, bytes]: tuple of return code (int) and stdout (str)
@@ -164,9 +162,8 @@ async def _execSubprocess(command: str, errorAsOut: bool = True) -> tuple[int, b
 	async with SEM:
 		process = await asyncio.create_subprocess_shell(
 			command,
-			shell=True,
 			stdout=subprocess.PIPE,
-			stderr=subprocess.STDOUT if errorAsOut else subprocess.PIPE,
+			stderr=subprocess.STDOUT,
 		)
 		out = await process.communicate()
 		exitCode = process.returncode
@@ -227,24 +224,21 @@ def _getTransparency(image1: np.ndarray, image2: np.ndarray) -> np.ndarray:
 	)
 
 
-@deprecated(deprecated_in="2022", removed_in="", details="Use asyncio.run(convMethod)")
 def run(convMethod: Awaitable) -> Any:
-	"""Use `asyncio.run(convMethod)` in-place of `pyrlottie.run(convMethod)`.
-
+	"""Use `pyrlottie.run(convMethod)` or `asyncio.get_event_loop().run_until_complete(convMethod)`
+	in place of `asyncio.run(convMethod)`
+	See https://github.com/awestlake87/pyo3-asyncio/issues/19#issuecomment-846686814
+	for more information
 	Run until the future (an instance of Future) has completed.
-
 	If the argument is a coroutine object it is implicitly scheduled to run as a asyncio.Task.
-
-	Return the Future's result or raise its exception.
-
+	Return the Future’s result or raise its exception.
 	Args:
 		convMethod (Awaitable): Awaitable to run. eg.
 		convSingleLottie(gLottieFile, destFiles={"test_data/convSingleLottie.webp"})
-
 	Returns:
 		Any: the Awaitable's result or raise its exception.
 	"""
-	return asyncio.run(convMethod)
+	return asyncio.get_event_loop().run_until_complete(convMethod)
 
 
 async def convMultLottieTransparentFrames(
@@ -446,7 +440,7 @@ async def convMultLottie(
 	return destFiles
 
 
-async def convSingleLottie(
+async def convSingleLottie(  # pylint: disable=too-many-arguments
 	lottieFile: LottieFile = None,
 	destFiles: set[str] = None,
 	filemap: FileMap = None,
