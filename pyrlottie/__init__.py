@@ -181,7 +181,7 @@ def _getBinDir() -> str:
 	"""
 	system = platform.system()
 	machine = platform.machine()
-	binDir = f"{THISDIR}/{system}_{machine}".lower()
+	binDir = f"{THISDIR}/{system.lower()}_{machine.lower()}"
 	if Path(binDir).exists():
 		return binDir
 	raise OSError(f"Sorry, your environment is not currently supported! {system=} {machine=}")
