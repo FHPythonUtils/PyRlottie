@@ -1,86 +1,26 @@
 # Pyrlottie
 
+[Pyrlottie Index](../README.md#pyrlottie-index) /
+Pyrlottie
+
 > Auto-generated documentation for [pyrlottie](../../../pyrlottie/__init__.py) module.
 
-Convert .tgs and .lottie to .webp or .gif using rlottie.
-
-- [Pyrlottie](../README.md#pyrlottie-index) / [Modules](../MODULES.md#pyrlottie-modules) / Pyrlottie
-    - [Formats](#formats)
-    - [Basic Usage](#basic-usage)
-    - [FileMap](#filemap)
-    - [LottieFile](#lottiefile)
-        - [LottieFile().\_\_attrs\_post\_init\_\_](#lottiefile__attrs_post_init__)
-    - [LottieFrames](#lottieframes)
-    - [convMultLottie](#convmultlottie)
-    - [convMultLottieFrames](#convmultlottieframes)
-    - [convMultLottieTransparentFrames](#convmultlottietransparentframes)
-    - [convSingleLottie](#convsinglelottie)
-    - [convSingleLottieFrames](#convsinglelottieframes)
-    - [convSingleLottieTransparentFrames](#convsinglelottietransparentframes)
-    - [run](#run)
-
-## Formats
-
-convMultLottie, convSingleLottie
-| Format | Animated |
-| ------ | -------- |
-| .gif   | ✔        |
-| .webp  | ✔        |
-
-convMultLottieFrames,
-convMultLottieTransparentFrames,
-convSingleLottieFrames,
-convSingleLottieTransparentFrames,
-| Format | Animated |
-| ------ | -------- |
-| .gif   | ✔        |
-| .webp  | ✔        |
-| .apng  | ✔        |
-| .png   | :x:      |
-| .jpg   | :x:      |
-| etc... | ...      |
-
-https://pillow.readthedocs.io/en/stable/handbook/image-file-formats.html
-
-## Basic Usage
-
-Convert multiple tgs files to webp
-
-```py
-# convMultLottie
-print(
- run(
-  convMultLottie(
-   [
-    FileMap(LottieFile(f"test_data/file_43{i}.tgs"), {f"test_data/file_43{i}.webp"})
-    for i in range(4, 10)
-   ]
-  )
- )
-)
-```
-
-Convert multiple tgs files to transparent frames dictionary of lottie file paths
-to LottieFrames. The list of pillow images can be accessed with .frames for each
-lottie file path
-
-```py
-frames = run(
- convMultLottieTransparentFrames(
-  [LottieFile(f"test_data/file_43{i}.tgs") for i in range(4, 10)], 1
- )
-)["test_data/file_434.tgs"].frames
-
-```
+- [Pyrlottie](#pyrlottie)
+  - [FileMap](#filemap)
+  - [LottieFile](#lottiefile)
+    - [LottieFile().__attrs_post_init__](#lottiefile()__attrs_post_init__)
+  - [LottieFrames](#lottieframes)
+  - [convMultLottie](#convmultlottie)
+  - [convMultLottieFrames](#convmultlottieframes)
+  - [convMultLottieTransparentFrames](#convmultlottietransparentframes)
+  - [convSingleLottie](#convsinglelottie)
+  - [convSingleLottieFrames](#convsinglelottieframes)
+  - [convSingleLottieTransparentFrames](#convsinglelottietransparentframes)
+  - [run](#run)
 
 ## FileMap
 
-[[find in source code]](../../../pyrlottie/__init__.py#L127)
-
-```python
-attr.s
-class FileMap():
-```
+[Show source in __init__.py:127](../../../pyrlottie/__init__.py#L127)
 
 FileMap. Map a LottieFile to a set of destination/output files.
 
@@ -89,14 +29,18 @@ FileMap. Map a LottieFile to a set of destination/output files.
 - `lottieFile` *LottieFile* - lottie file
 - `destFiles` *set[str]* - set of destination/output files. Default={"out.gif"}
 
-## LottieFile
-
-[[find in source code]](../../../pyrlottie/__init__.py#L82)
+#### Signature
 
 ```python
-attr.s
-class LottieFile():
+class FileMap:
+    ...
 ```
+
+
+
+## LottieFile
+
+[Show source in __init__.py:82](../../../pyrlottie/__init__.py#L82)
 
 LottieFile. Load a lottie/tgs has a path and data (json/dict).
 
@@ -109,13 +53,16 @@ LottieFile. Load a lottie/tgs has a path and data (json/dict).
 
 - `ValueError` - Failure to parse the lottiefile json
 
-### LottieFile().\_\_attrs\_post\_init\_\_
-
-[[find in source code]](../../../pyrlottie/__init__.py#L96)
+#### Signature
 
 ```python
-def __attrs_post_init__() -> None:
+class LottieFile:
+    ...
 ```
+
+### LottieFile().__attrs_post_init__
+
+[Show source in __init__.py:96](../../../pyrlottie/__init__.py#L96)
 
 LottieFile __attrs_post_init__ called by attrs.
 
@@ -128,14 +75,18 @@ LottieFile __attrs_post_init__ called by attrs.
 
 - `ValueError` - Failure to parse the lottiefile json
 
-## LottieFrames
-
-[[find in source code]](../../../pyrlottie/__init__.py#L140)
+#### Signature
 
 ```python
-attr.s
-class LottieFrames():
+def __attrs_post_init__(self) -> None:
+    ...
 ```
+
+
+
+## LottieFrames
+
+[Show source in __init__.py:140](../../../pyrlottie/__init__.py#L140)
 
 LottieFrames. Dataclass to hold info on lottieframes with LottieFile.data
 and a list of PIL.Image.Image(s) containing frame data.
@@ -145,18 +96,18 @@ and a list of PIL.Image.Image(s) containing frame data.
 - `data` *LottieFile* - LottieFile.data
 - `frames` *list[Image.Image]* - list of PIL.Image.Image(s) containing frame data
 
-## convMultLottie
-
-[[find in source code]](../../../pyrlottie/__init__.py#L401)
+#### Signature
 
 ```python
-async def convMultLottie(
-    filemaps: list[FileMap],
-    backgroundColour: str = '000000',
-    frameSkip: int = 0,
-    scale: float = 1,
-) -> set[str]:
+class LottieFrames:
+    ...
 ```
+
+
+
+## convMultLottie
+
+[Show source in __init__.py:401](../../../pyrlottie/__init__.py#L401)
 
 Convert multiple lottie/tgs to files specified in filemaps
 can convert to .gif or .webp. For other formats use convMultLottieFrames and pillow
@@ -181,22 +132,27 @@ for optimisation with a quality trade-off. Defaults to 1.
 
 - `set[str]` - set of successfully converted files
 
+#### Signature
+
+```python
+async def convMultLottie(
+    filemaps: list[FileMap],
+    backgroundColour: str = "000000",
+    frameSkip: int = 0,
+    scale: float = 1,
+) -> set[str]:
+    ...
+```
+
 #### See also
 
 - [FileMap](#filemap)
 
+
+
 ## convMultLottieFrames
 
-[[find in source code]](../../../pyrlottie/__init__.py#L323)
-
-```python
-async def convMultLottieFrames(
-    lottieFiles: list[LottieFile],
-    backgroundColour: str = '000000',
-    frameSkip: int = 0,
-    scale: float = 1,
-) -> dict[str, LottieFrames]:
-```
+[Show source in __init__.py:323](../../../pyrlottie/__init__.py#L323)
 
 Convert multiple lottie files to a dictionary of LottieFile.path to
 LottieFrames (LottieFile.data and a list of PIL.Image.Image frames).
@@ -216,22 +172,28 @@ for optimisation with a quality trade-off. Defaults to 1.
 - `dict[str,` *LottieFrames]* - a dictionary of LottieFile.path to LottieFrames
 (LottieFile.data and a list of PIL.Image.Image frames) for each lottieFile
 
+#### Signature
+
+```python
+async def convMultLottieFrames(
+    lottieFiles: list[LottieFile],
+    backgroundColour: str = "000000",
+    frameSkip: int = 0,
+    scale: float = 1,
+) -> dict[str, LottieFrames]:
+    ...
+```
+
 #### See also
 
 - [LottieFile](#lottiefile)
 - [LottieFrames](#lottieframes)
 
+
+
 ## convMultLottieTransparentFrames
 
-[[find in source code]](../../../pyrlottie/__init__.py#L244)
-
-```python
-async def convMultLottieTransparentFrames(
-    lottieFiles: list[LottieFile],
-    frameSkip: int = 0,
-    scale: float = 1,
-) -> dict[str, LottieFrames]:
-```
+[Show source in __init__.py:244](../../../pyrlottie/__init__.py#L244)
 
 Convert multiple lottie files to a dictionary of LottieFile.path to
 LottieFrames (LottieFile.data and a list of PIL.Image.Image frames) with
@@ -250,25 +212,25 @@ for optimisation with a quality trade-off. Defaults to 1.
 - `dict[str,` *LottieFrames]* - a dictionary of LottieFile.path to LottieFrames
 (LottieFile.data and a list of PIL.Image.Image frames) for each lottieFile
 
+#### Signature
+
+```python
+async def convMultLottieTransparentFrames(
+    lottieFiles: list[LottieFile], frameSkip: int = 0, scale: float = 1
+) -> dict[str, LottieFrames]:
+    ...
+```
+
 #### See also
 
 - [LottieFile](#lottiefile)
 - [LottieFrames](#lottieframes)
 
+
+
 ## convSingleLottie
 
-[[find in source code]](../../../pyrlottie/__init__.py#L443)
-
-```python
-async def convSingleLottie(
-    lottieFile: LottieFile = None,
-    destFiles: set[str] = None,
-    filemap: FileMap = None,
-    backgroundColour: str = '000000',
-    frameSkip: int = 0,
-    scale: float = 1,
-) -> set[str]:
-```
+[Show source in __init__.py:443](../../../pyrlottie/__init__.py#L443)
 
 Convert a single lottie/tgs to files specified in destFiles
 can convert to .gif or .webp. For other formats use convSingleLottieFrames and pillow
@@ -298,23 +260,30 @@ for optimisation with a quality trade-off. Defaults to 1.
 
 - `set[str]` - set of successfully converted files
 
+#### Signature
+
+```python
+async def convSingleLottie(
+    lottieFile: LottieFile = None,
+    destFiles: set[str] = None,
+    filemap: FileMap = None,
+    backgroundColour: str = "000000",
+    frameSkip: int = 0,
+    scale: float = 1,
+) -> set[str]:
+    ...
+```
+
 #### See also
 
 - [FileMap](#filemap)
 - [LottieFile](#lottiefile)
 
+
+
 ## convSingleLottieFrames
 
-[[find in source code]](../../../pyrlottie/__init__.py#L361)
-
-```python
-async def convSingleLottieFrames(
-    lottieFile: LottieFile,
-    backgroundColour: str = '000000',
-    frameSkip: int = 0,
-    scale: float = 1,
-) -> dict[str, LottieFrames]:
-```
+[Show source in __init__.py:361](../../../pyrlottie/__init__.py#L361)
 
 Convert a single lottie file to a dictionary of LottieFile.path to
 LottieFrames (LottieFile.data and a list of PIL.Image.Image frames).
@@ -334,22 +303,28 @@ for optimisation with a quality trade-off. Defaults to 1.
 - `dict[str,` *LottieFrames]* - a dictionary of LottieFile.path to LottieFrames
 (LottieFile.data and a list of PIL.Image.Image frames)
 
+#### Signature
+
+```python
+async def convSingleLottieFrames(
+    lottieFile: LottieFile,
+    backgroundColour: str = "000000",
+    frameSkip: int = 0,
+    scale: float = 1,
+) -> dict[str, LottieFrames]:
+    ...
+```
+
 #### See also
 
 - [LottieFile](#lottiefile)
 - [LottieFrames](#lottieframes)
 
+
+
 ## convSingleLottieTransparentFrames
 
-[[find in source code]](../../../pyrlottie/__init__.py#L279)
-
-```python
-async def convSingleLottieTransparentFrames(
-    lottieFile: LottieFile,
-    frameSkip: int = 0,
-    scale: float = 1,
-) -> dict[str, LottieFrames]:
-```
+[Show source in __init__.py:279](../../../pyrlottie/__init__.py#L279)
 
 Convert a single lottie file to a dictionary of LottieFile.path to
 LottieFrames (LottieFile.data and a list of PIL.Image.Image frames) with
@@ -368,18 +343,25 @@ for optimisation with a quality trade-off. Defaults to 1.
 - `dict[str,` *LottieFrames]* - a dictionary of LottieFile.path to LottieFrames
 (LottieFile.data and a list of PIL.Image.Image frames)
 
+#### Signature
+
+```python
+async def convSingleLottieTransparentFrames(
+    lottieFile: LottieFile, frameSkip: int = 0, scale: float = 1
+) -> dict[str, LottieFrames]:
+    ...
+```
+
 #### See also
 
 - [LottieFile](#lottiefile)
 - [LottieFrames](#lottieframes)
 
+
+
 ## run
 
-[[find in source code]](../../../pyrlottie/__init__.py#L227)
-
-```python
-def run(convMethod: Awaitable) -> Any:
-```
+[Show source in __init__.py:227](../../../pyrlottie/__init__.py#L227)
 
 Use `pyrlottie.run(convMethod)` or `asyncio.get_event_loop().run_until_complete(convMethod)`
 in place of `asyncio.run(convMethod)`
@@ -397,3 +379,12 @@ convSingleLottie(gLottieFile, destFiles={"test_data/convSingleLottie.webp"})
 #### Returns
 
 - `Any` - the Awaitable's result or raise its exception.
+
+#### Signature
+
+```python
+def run(convMethod: Awaitable) -> Any:
+    ...
+```
+
+

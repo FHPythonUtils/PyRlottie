@@ -3,6 +3,16 @@
 All major and minor version changes will be documented in this file. Details of
 patch-level version changes can be found in [commit messages](../../commits/master).
 
+## 2022.0.2 - 2022/12/30
+
+- Fix `_getBinDir` https://github.com/arnu515
+  > The function to get bin directory makes the entire path to lowercase, which
+  > will be a problem on systems like Linux, where the file system is case sensitive.
+  >
+  > For example, /home/user/Documents/a/b/c gets converted to /home/user/documents/a/b/c.
+  > This works on Windows, because for it, files aren't case sensitive, but for linux,
+  > Documents and documents are two separate paths.
+
 ## 2022.0.1 - 2022/04/10
 
 - Small performance increase using some output from the experimental branch

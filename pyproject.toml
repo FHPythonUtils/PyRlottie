@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pyrlottie"
-version = "2022.0.1"
+version = "2022.0.2"
 license = "mit"
 description = "Convert .tgs and .lottie to .webp or .gif using rlottie."
 authors = ["FredHappyface"]
@@ -55,8 +55,7 @@ ignore-patterns = "test_.*?py"
 enable = ["F", "E", "W", "R", "C"]
 disable = [
 	"pointless-string-statement",
-	"superfluous-parens",
-	"bad-continuation"
+	"superfluous-parens"
 ]
 
 [tool.black]
