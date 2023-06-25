@@ -34,6 +34,18 @@ pylint = "^2.13.5"
 handsdown = "^1.1.0"
 coverage = "^6.3.2"
 
+[tool.black]
+line-length = 100
+target-version = ["py38"]
+
+[tool.isort]
+profile = "black"
+indent = "Tab"
+
+[tool.pydocstyle]
+convention = "google"
+ignore = "D205,D415"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
@@ -49,23 +61,24 @@ variable-naming-style = "camelCase"
 indent-string = "\t"
 
 [tool.pylint.master]
-ignore-patterns = "test_.*?py"
+ignore-paths = ["tests"]
 
 [tool.pylint.messages_control]
 enable = ["F", "E", "W", "R", "C"]
-disable = [
-	"pointless-string-statement",
-	"superfluous-parens"
-]
+disable = ["pointless-string-statement", "superfluous-parens"]
 
-[tool.black]
-line-length = 100
-target-version = ["py37"]
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+env_list =
+	py311
+	py310
+	py39
+	py38
 
-[tool.isort]
-profile = "black"
-indent = "Tab"
-
-[tool.pydocstyle]
-convention = "google"
-ignore = "D205,D415"
+[testenv]
+deps =
+	pytest
+	imgcompare
+commands = pytest tests
+"""
