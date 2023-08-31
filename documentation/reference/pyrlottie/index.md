@@ -386,5 +386,3 @@ convSingleLottie(gLottieFile, destFiles={"test_data/convSingleLottie.webp"})
 def run(convMethod: Awaitable) -> Any:
     ...
 ```
-
-

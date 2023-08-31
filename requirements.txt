@@ -1,4 +1,4 @@
-Pillow<10,>=9.0.0
-attrs<22,>=21.4.0
+Pillow<11,>=10.0.0
+attrs<24,>=23.1.0
 deprecation<3,>=2.1.0
 numpy<2,>=1.22.1

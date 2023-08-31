@@ -3,6 +3,10 @@
 All major and minor version changes will be documented in this file. Details of
 patch-level version changes can be found in [commit messages](../../commits/master).
 
+## 2023 - 2023/08/31
+
+- Update deps
+
 ## 2022.0.2 - 2022/12/30
 
 - Fix `_getBinDir` https://github.com/arnu515
