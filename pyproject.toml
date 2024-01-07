@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pyrlottie"
-version = "2023"
+version = "2024"
 license = "mit"
 description = "Convert .tgs and .lottie to .webp or .gif using rlottie."
 authors = ["FredHappyface"]

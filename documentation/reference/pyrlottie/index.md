@@ -1,7 +1,6 @@
 # Pyrlottie
 
-[Pyrlottie Index](../README.md#pyrlottie-index) /
-Pyrlottie
+[Pyrlottie Index](../README.md#pyrlottie-index) / Pyrlottie
 
 > Auto-generated documentation for [pyrlottie](../../../pyrlottie/__init__.py) module.
 
@@ -10,6 +9,10 @@ Pyrlottie
   - [LottieFile](#lottiefile)
     - [LottieFile().__attrs_post_init__](#lottiefile()__attrs_post_init__)
   - [LottieFrames](#lottieframes)
+  - [_execSubprocess](#_execsubprocess)
+  - [_getBinDir](#_getbindir)
+  - [_getTransparency](#_gettransparency)
+  - [_scale](#_scale)
   - [convMultLottie](#convmultlottie)
   - [convMultLottieFrames](#convmultlottieframes)
   - [convMultLottieTransparentFrames](#convmultlottietransparentframes)
@@ -66,8 +69,8 @@ LottieFile __attrs_post_init__ called by attrs.
 
 #### Arguments
 
-- `path` *str* - path to the lottie file
-- `data` *dict* - python dict representing the json data. Default=None (file is read)
+- [path](#lottiefile) *str* - path to the lottie file
+- [data](#lottiefile) *dict* - python dict representing the json data. Default=None (file is read)
 
 #### Raises
 
@@ -97,6 +100,96 @@ and a list of PIL.Image.Image(s) containing frame data.
 
 ```python
 class LottieFrames: ...
+```
+
+
+
+## _execSubprocess
+
+[Show source in __init__.py:153](../../../pyrlottie/__init__.py#L153)
+
+Execute a command and check for errors.
+
+#### Arguments
+
+- `command` *str* - commands as a string
+
+#### Returns
+
+- `tuple[int,` *bytes]* - tuple of return code (int) and stdout (str)
+
+#### Signature
+
+```python
+async def _execSubprocess(command: str) -> tuple[int, bytes]: ...
+```
+
+
+
+## _getBinDir
+
+[Show source in __init__.py:173](../../../pyrlottie/__init__.py#L173)
+
+Get the binary dir using the current environment (platform.system(), platform.machine()).
+
+#### Raises
+
+- `OSError` - if the user's environment is not supported
+
+#### Returns
+
+- `str` - binDir - the binary dir
+
+#### Signature
+
+```python
+def _getBinDir() -> str: ...
+```
+
+
+
+## _getTransparency
+
+[Show source in __init__.py:205](../../../pyrlottie/__init__.py#L205)
+
+Get the transparent pixels from an image with a red bg and an image with a black bg.
+
+#### Arguments
+
+- `background` *np.ndarray* - image1 (the red image)
+- `foreground` *np.ndarray* - image2 (the black image)
+
+#### Returns
+
+- `np.ndarray` - pixels for the transparent image
+
+#### Signature
+
+```python
+def _getTransparency(image1: np.ndarray, image2: np.ndarray) -> np.ndarray: ...
+```
+
+
+
+## _scale
+
+[Show source in __init__.py:190](../../../pyrlottie/__init__.py#L190)
+
+Get a scaled dimen.
+
+#### Arguments
+
+- `dimen` *str* - dimension in px
+- `scale` *float* - scale
+
+#### Returns
+
+- `Optional[int,` *str]* - scaled dimen (min=1)
+
+#### Signature
+
+```python
+def _scale(dimen: str, scale: float = 1) -> int | str: ...
 ```
 
 
