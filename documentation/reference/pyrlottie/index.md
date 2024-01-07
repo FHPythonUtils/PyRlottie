@@ -32,8 +32,7 @@ FileMap. Map a LottieFile to a set of destination/output files.
 #### Signature
 
 ```python
-class FileMap:
-    ...
+class FileMap: ...
 ```
 
 
@@ -56,8 +55,7 @@ LottieFile. Load a lottie/tgs has a path and data (json/dict).
 #### Signature
 
 ```python
-class LottieFile:
-    ...
+class LottieFile: ...
 ```
 
 ### LottieFile().__attrs_post_init__
@@ -78,8 +76,7 @@ LottieFile __attrs_post_init__ called by attrs.
 #### Signature
 
 ```python
-def __attrs_post_init__(self) -> None:
-    ...
+def __attrs_post_init__(self) -> None: ...
 ```
 
 
@@ -99,8 +96,7 @@ and a list of PIL.Image.Image(s) containing frame data.
 #### Signature
 
 ```python
-class LottieFrames:
-    ...
+class LottieFrames: ...
 ```
 
 
@@ -140,8 +136,7 @@ async def convMultLottie(
     backgroundColour: str = "000000",
     frameSkip: int = 0,
     scale: float = 1,
-) -> set[str]:
-    ...
+) -> set[str]: ...
 ```
 
 #### See also
@@ -180,8 +175,7 @@ async def convMultLottieFrames(
     backgroundColour: str = "000000",
     frameSkip: int = 0,
     scale: float = 1,
-) -> dict[str, LottieFrames]:
-    ...
+) -> dict[str, LottieFrames]: ...
 ```
 
 #### See also
@@ -217,8 +211,7 @@ for optimisation with a quality trade-off. Defaults to 1.
 ```python
 async def convMultLottieTransparentFrames(
     lottieFiles: list[LottieFile], frameSkip: int = 0, scale: float = 1
-) -> dict[str, LottieFrames]:
-    ...
+) -> dict[str, LottieFrames]: ...
 ```
 
 #### See also
@@ -270,8 +263,7 @@ async def convSingleLottie(
     backgroundColour: str = "000000",
     frameSkip: int = 0,
     scale: float = 1,
-) -> set[str]:
-    ...
+) -> set[str]: ...
 ```
 
 #### See also
@@ -311,8 +303,7 @@ async def convSingleLottieFrames(
     backgroundColour: str = "000000",
     frameSkip: int = 0,
     scale: float = 1,
-) -> dict[str, LottieFrames]:
-    ...
+) -> dict[str, LottieFrames]: ...
 ```
 
 #### See also
@@ -348,8 +339,7 @@ for optimisation with a quality trade-off. Defaults to 1.
 ```python
 async def convSingleLottieTransparentFrames(
     lottieFile: LottieFile, frameSkip: int = 0, scale: float = 1
-) -> dict[str, LottieFrames]:
-    ...
+) -> dict[str, LottieFrames]: ...
 ```
 
 #### See also
@@ -383,6 +373,5 @@ convSingleLottie(gLottieFile, destFiles={"test_data/convSingleLottie.webp"})
 #### Signature
 
 ```python
-def run(convMethod: Awaitable) -> Any:
-    ...
+def run(convMethod: Awaitable) -> Any: ...
 ```
