@@ -19,7 +19,7 @@ from pyrlottie import (
 gLottieFile = LottieFile(f"{THISDIR}/data/3d.json")
 
 
-def test_convSingleLottie():
+def test_convSingleLottie() -> None:
 	"""test_convSingleLottie"""
 	outputFile = f"{THISDIR}/data/convSingleLottie.webp"
 	run(
@@ -38,7 +38,7 @@ def test_convSingleLottie():
 		)
 
 
-def test_convMultLottie():
+def test_convMultLottie() -> None:
 	"""test_convMultLottie"""
 	run(
 		convMultLottie(
@@ -59,7 +59,7 @@ def test_convMultLottie():
 		)
 
 
-def test_convSingleLottieTransparentFrames():
+def test_convSingleLottieTransparentFrames() -> None:
 	"""test_convSingleLottieTransparentFrames"""
 	gLottieFrames = run(convSingleLottieTransparentFrames(gLottieFile))
 	layers = gLottieFrames[gLottieFile.path].frames
