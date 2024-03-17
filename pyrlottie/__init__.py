@@ -30,14 +30,14 @@ Convert multiple tgs files to webp
 ```py
 # convMultLottie
 print(
-	run(
-		convMultLottie(
-			[
-				FileMap(LottieFile(f"test_data/file_43{i}.tgs"), {f"test_data/file_43{i}.webp"})
-				for i in range(4, 10)
-			]
-		)
-	)
+    run(
+        convMultLottie(
+            [
+                FileMap(LottieFile(f"test_data/file_43{i}.tgs"), {f"test_data/file_43{i}.webp"})
+                for i in range(4, 10)
+            ]
+        )
+    )
 )
 ```
 
@@ -47,13 +47,13 @@ lottie file path
 
 ```py
 frames = run(
-	convMultLottieTransparentFrames(
-		[LottieFile(f"test_data/file_43{i}.tgs") for i in range(4, 10)], 1
-	)
+    convMultLottieTransparentFrames(
+        [LottieFile(f"test_data/file_43{i}.tgs") for i in range(4, 10)], 1
+    )
 )["test_data/file_434.tgs"].frames
-
 ```
 """
+
 from __future__ import annotations
 
 import asyncio

@@ -1,5 +1,5 @@
-"""Basic tests for pyrlottie.
-"""
+"""Basic tests for pyrlottie."""
+
 from __future__ import annotations
 
 import sys
