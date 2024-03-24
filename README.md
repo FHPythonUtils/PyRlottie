@@ -123,17 +123,6 @@ where to look for certain things:
   may have.
 -->
 
-## Supported Environments (64bit)
-
-| Environment   | Supported |
-| ------------- | --------- |
-| linux_x86_64  | ✔         |
-| linux_aarch64 | ✔         |
-| windows_amd64 | ✔         |
-| darwin_x86_64 | ❌         |
-| darwin_arm64  | ❌         |
-
-For a full list of machine architecures for Linux see https://stackoverflow.com/questions/45125516/possible-values-for-uname-m
 
 ## Install With PIP
 
@@ -159,8 +148,8 @@ Head to https://pypi.org/project/pyrlottie/ for more info
 
 ### Built for
 
-This program has been written for Python versions 3.8 - 3.11 and has been tested with both 3.8 and
-3.11
+This program has been written for Python versions 3.8 - 3.12 and has been tested with both 3.8 and
+3.12
 
 ## Install Python on Windows
 
@@ -222,29 +211,19 @@ version.
 
 ## Building
 
-This project uses https://github.com/FHPythonUtils/FHMake to automate most of the building. This
-command generates the documentation, updates the requirements.txt and builds the library artefacts
-
-Note the functionality provided by fhmake can be approximated by the following
-
 ```sh
-handsdown  --cleanup -o documentation/reference
-poetry export -f requirements.txt --output requirements.txt
-poetry export -f requirements.txt --with dev --output requirements_optional.txt
-poetry build
+pip install build
+python -m build .
 ```
-
-`fhmake audit` can be run to perform additional checks
 
 ## Testing
 
-For testing with the version of python used by poetry use
-
 ```sh
-poetry run pytest
+pip install .[dev]
+pytest
 ```
 
-Alternatively use `tox` to run tests over python 3.8 - 3.11
+Alternatively use `tox` to run tests over python 3.8 - 3.12
 
 ```sh
 tox

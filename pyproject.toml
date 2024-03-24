@@ -1,10 +1,12 @@
-[tool.poetry]
+[project]
 name = "pyrlottie"
 version = "2024.0.1"
-license = "mit"
 description = "Convert .tgs and .lottie to .webp or .gif using rlottie."
-authors = ["FredHappyface"]
+authors = [
+	{name = "FredHappyface", email = "FredHappyface@users.noreply.github.com"}
+]
 classifiers = [
+	"License :: OSI Approved :: MIT License",
 	"Development Status :: 5 - Production/Stable",
 	"Intended Audience :: Developers",
 	"Intended Audience :: Education",
@@ -19,25 +21,52 @@ homepage = "https://github.com/FHPythonUtils/PyRlottie"
 repository = "https://github.com/FHPythonUtils/PyRlottie"
 documentation = "https://github.com/FHPythonUtils/PyRlottie/blob/master/README.md"
 readme = "README.md"
+dependencies = [
+	"attrs>=23.2.0",
+	"Pillow",
+	"numpy",
+	"deprecation>=2.1.0",
+]
 
-[tool.poetry.dependencies]
-python = ">=3.9,<4.0"
-attrs = "<24,>=23.2.0"
-Pillow = "<11,>=10.2.0"
-numpy = "<2,>=1.26.4"
-deprecation = "<3,>=2.1.0"
-
-[tool.poetry.group.dev.dependencies]
-imgcompare = "^2.0.1"
-pytest = "^8.1.1"
-handsdown = "^2.1.0"
-coverage = "^7.4.4"
-ruff = "^0.3.3"
-pyright = "^1.1.354"
+[project.optional-dependencies]
+dev = [
+	"imgcompare>=2.0.1",
+	"pytest>=8.1.1",
+	"handsdown>=2.1.0",
+	"coverage>=7.4.4",
+	"ruff>=0.3.3",
+	"pyright>=1.1.354",
+]
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = [
+	"py-build-cmake~=0.2.0a12",
+	"conan>=2.0",
+	"patch>=1.16",
+]
+build-backend = "py_build_cmake.build"
+
+[tool.py-build-cmake.module]
+name = "pyrlottie"
+directory = "src"
+
+[tool.py-build-cmake.sdist]
+include = [
+	"scripts/*",
+	"patches/*",
+	"CMakeLists.txt",
+	"rlottie/*",
+	"libwebp/*",
+	"conanfile.py",
+]
+
+[tool.py-build-cmake.cmake]
+build_type = "Release"
+source_path = "."
+build_args = ["-j"]
+install_components = ["python_module"]
+python_abi = 'abi3'
+abi3_minimum_cpython_version = 38
 
 [tool.ruff]
 line-length = 100
@@ -80,6 +109,7 @@ branch = true
 legacy_tox_ini = """
 [tox]
 env_list =
+	py312
 	py311
 	py310
 	py39
