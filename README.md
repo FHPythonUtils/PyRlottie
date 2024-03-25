@@ -130,26 +130,12 @@ where to look for certain things:
 pip install pyrlottie
 ```
 
-### WSL
-
-Need to preserve execute bits
-
-```sh
-mkdir pip-tmp
-TMPDIR='./pip-tmp' pip install pyrlottie && rmdir pip-tmp
-```
-
-https://github.com/pypa/pip/issues/7666
-https://github.com/pypa/pip/issues/6364
-
-Head to https://pypi.org/project/pyrlottie/ for more info
-
 ## Language information
 
 ### Built for
 
-This program has been written for Python versions 3.8 - 3.12 and has been tested with both 3.8 and
-3.12
+This program has been written for Python versions 3.8 - 3.12 and has been tested with
+both 3.8 and 3.12
 
 ## Install Python on Windows
 
