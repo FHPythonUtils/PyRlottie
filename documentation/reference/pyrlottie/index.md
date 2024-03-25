@@ -134,28 +134,6 @@ async def _execSubprocess(command: str) -> tuple[int, bytes]: ...
 
 
 
-## _getBinDir
-
-[Show source in __init__.py:182](../../../pyrlottie/__init__.py#L182)
-
-Get the binary dir using the current environment (platform.system(), platform.machine()).
-
-Raises
-------
- OSError: if the user's environment is not supported
-
-Returns
--------
- str: binDir - the binary dir
-
-#### Signature
-
-```python
-def _getBinDir() -> str: ...
-```
-
-
-
 ## _getTransparency
 
 [Show source in __init__.py:221](../../../pyrlottie/__init__.py#L221)
