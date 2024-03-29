@@ -1,0 +1,6 @@
+[submodule "libwebp"]
+	path = libwebp
+	url = https://github.com/webmproject/libwebp.git
+[submodule "rlottie"]
+	path = rlottie
+	url = https://github.com/Samsung/rlottie.git

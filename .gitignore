@@ -163,3 +163,9 @@ dmypy.json
 
 # pytype static type analyzer
 .pytype/
+
+# CMake
+CMakeUserPresets.json
+
+# Conan
+conan_output/*

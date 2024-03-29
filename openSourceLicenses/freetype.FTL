@@ -1,4 +1,4 @@
-Applicable to rlottie_src/src/vector/freetype
+Applicable to rlottie/src/vector/freetype
 
                     The FreeType Project LICENSE
                     ----------------------------

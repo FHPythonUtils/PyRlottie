@@ -1,0 +1,51 @@
+diff --git a/rlottie/example/lottie2gif.cpp b/rlottie/example/lottie2gif.cpp
+index cb43c21..0ff9737 100644
+--- a/rlottie/example/lottie2gif.cpp
++++ b/rlottie/example/lottie2gif.cpp
+@@ -5,6 +5,7 @@
+ #include<string>
+ #include<vector>
+ #include<array>
++#include <math.h>
+ 
+ #ifndef _WIN32
+ #include<libgen.h>
+@@ -84,12 +85,13 @@ public:
+ 
+         auto buffer = std::unique_ptr<uint32_t[]>(new uint32_t[w * h]);
+         size_t frameCount = player->totalFrame();
++		size_t delay = (size_t) round(100*(frameSkip+1) / player->frameRate());
+ 
+         GifBuilder builder(gifName.data(), w, h, bgColor);
+-        for (size_t i = 0; i < frameCount ; i++) {
++        for (size_t i = 0; i < frameCount ; i+=(1+frameSkip)) {
+             rlottie::Surface surface(buffer.get(), w, h, w * 4);
+             player->renderSync(i, surface);
+-            builder.addFrame(surface);
++            builder.addFrame(surface, delay);
+         }
+         return result();
+     }
+@@ -126,10 +128,13 @@ public:
+ 
+         fileName = std::string(path);
+ 
+-        if (!jsonFile()) return help();
++        //if (!jsonFile()) return help();
+ 
+         gifName = basename(fileName);
+         gifName.append(".gif");
++
++		if (argc > 4) gifName = argv[4];
++		if (argc > 5) frameSkip = atoi(argv[5]);
+         return 0;
+     }
+ 
+@@ -160,6 +165,7 @@ private:
+ 
+ private:
+     int bgColor = 0xffffffff;
++	int frameSkip = 0;
+     std::string fileName;
+     std::string gifName;
+ };
